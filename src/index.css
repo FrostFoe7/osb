@@ -1,0 +1,311 @@
+@import "./fonts.css";
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: var(--color-gold-500);
+  color: var(--color-brand-950);
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+div,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  font-family: "Hind Siliguri", "Noto Serif Bengali", sans-serif !important;
+  line-height: 1.5;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Shadcn UI Variables mapped to Brand Palette */
+  --background: #0b271b;
+  --foreground: #f2fbf5;
+  --card: #0b271b;
+  --card-foreground: #f2fbf5;
+  --popover: #0b271b;
+  --popover-foreground: #f2fbf5;
+  --primary: #d4af37;
+  --primary-foreground: #0b271b;
+  --secondary: #194532;
+  --secondary-foreground: #f2fbf5;
+  --muted: #1d543b;
+  --muted-foreground: rgba(242, 251, 245, 0.6);
+  --accent: #d4af37;
+  --accent-foreground: #0b271b;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f2fbf5;
+  --border: rgba(212, 175, 55, 0.2);
+  --input: rgba(212, 175, 55, 0.2);
+  --ring: #d4af37;
+  --radius: 0.75rem;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --background: #0b271b;
+  --foreground: #f2fbf5;
+  --card: #0b271b;
+  --card-foreground: #f2fbf5;
+  --popover: #0b271b;
+  --popover-foreground: #f2fbf5;
+  --primary: #d4af37;
+  --primary-foreground: #0b271b;
+  --secondary: #194532;
+  --secondary-foreground: #f2fbf5;
+  --muted: #1d543b;
+  --muted-foreground: rgba(242, 251, 245, 0.6);
+  --accent: #d4af37;
+  --accent-foreground: #0b271b;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f2fbf5;
+  --border: rgba(212, 175, 55, 0.2);
+  --input: rgba(212, 175, 55, 0.2);
+  --ring: #d4af37;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-gold-500);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--color-gold-400);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-brand-950);
+  color: var(--color-brand-50);
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-brand-900);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: var(--color-gold-500);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* OSB Custom Theme */
+  --font-sans: "Hind Siliguri", sans-serif;
+  --font-serif: "Noto Serif Bengali", serif;
+  --font-arabic: "Amiri", serif;
+
+  --default-font-family: var(--font-sans);
+
+  --color-brand-50: #f2fbf5;
+  --color-brand-100: #e1f7e8;
+  --color-brand-500: #39a671;
+  --color-brand-600: #278558;
+  --color-brand-700: #216a48;
+  --color-brand-800: #1d543b;
+  --color-brand-900: #194532;
+  --color-brand-950: #0b271b;
+
+  --color-gold-50: #fdfbf6;
+  --color-gold-100: #f8f2df;
+  --color-gold-300: #e7c25c;
+  --color-gold-400: #dfae28;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b89225;
+  --color-gold-700: #94721a;
+  --color-gold-900: #624a16;
+
+  --color-bkash: #e2136e;
+  --color-nagad: #f37021;
+  --color-rocket: #8c1596;
+  --color-upay: #005fb3;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+    }
+
+    50% {
+      opacity: 0.8;
+      filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.1));
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+.animate-marquee {
+  animation: marquee 45s linear infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+}
+
+@layer components {
+  .bg-islamic-dark {
+    background-color: var(--color-brand-950);
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .gold-gradient-text {
+    background: linear-gradient(
+      135deg,
+      var(--color-gold-100) 0%,
+      var(--color-gold-500) 50%,
+      var(--color-gold-300) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glass-card-dark {
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-950);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gold-500);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-300);
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
