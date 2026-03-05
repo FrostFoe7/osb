@@ -39,21 +39,21 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
             {/* Logo Area */}
             <div
               onClick={() => onNavigate("hero")}
-              className="flex-shrink-0 flex items-center gap-4 cursor-pointer group"
+              className="flex-shrink-0 flex items-center gap-3 md:gap-4 cursor-pointer group"
             >
               <div className="relative">
-                <div className="w-12 h-12 bg-brand-900 rounded-2xl flex items-center justify-center text-gold-400 font-serif font-bold text-2xl border border-gold-500/30 group-hover:border-gold-400 group-hover:scale-105 transition-all duration-500 shadow-lg relative overflow-hidden z-10">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-900 rounded-xl md:rounded-2xl flex items-center justify-center text-gold-400 font-serif font-bold text-xl md:text-2xl border border-gold-500/30 group-hover:border-gold-400 group-hover:scale-105 transition-all duration-500 shadow-lg relative overflow-hidden z-10">
                   <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                   <span className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">O</span>
                 </div>
                 {/* Decorative background glow */}
-                <div className="absolute -inset-1 bg-gold-500/20 rounded-[1.2rem] blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-0"></div>
+                <div className="absolute -inset-1 bg-gold-500/20 rounded-[1rem] md:rounded-[1.2rem] blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-0"></div>
               </div>
               <div className="flex flex-col -space-y-1">
-                <span className="font-serif font-bold text-2xl text-brand-50 tracking-wide group-hover:text-gold-400 transition-colors duration-300">
+                <span className="font-serif font-bold text-xl md:text-2xl text-brand-50 tracking-wide group-hover:text-gold-400 transition-colors duration-300">
                   OSB
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-gold-500/80 group-hover:text-gold-400 transition-colors duration-300">
+                <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-gold-500/80 group-hover:text-gold-400 transition-colors duration-300">
                   Foundation
                 </span>
               </div>
@@ -104,7 +104,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
           }`}
       >
         <button
-          className="absolute top-8 right-8 text-brand-50 hover:text-gold-400 p-2"
+          className="absolute top-6 right-6 text-brand-50 hover:text-gold-400 p-3 transition-transform active:scale-90"
           onClick={() => setIsMenuOpen(false)}
         >
           <X className="w-8 h-8" />
@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
           </div>
         </div>
 
-        <nav className="flex flex-col items-center space-y-8 w-full px-10">
+        <nav className="flex flex-col items-center space-y-7 w-full px-10">
           {navLinks.map((link, idx) => (
             <button
               key={link.id}
@@ -128,7 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 setIsMenuOpen(false);
               }}
               style={{ transitionDelay: `${idx * 100}ms` }}
-              className={`text-3xl font-serif transition-all duration-500 transform ${isMenuOpen
+              className={`text-2xl md:text-3xl font-serif transition-all duration-500 transform ${isMenuOpen
                 ? "translate-y-0 opacity-100"
                 : "translate-y-10 opacity-0"
                 } ${activeSection === link.id
@@ -146,12 +146,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
               setIsMenuOpen(false);
             }}
             style={{ transitionDelay: `${navLinks.length * 100}ms` }}
-            className={`bg-gold-500 text-brand-950 px-10 py-5 rounded-full font-bold hover:bg-gold-400 transition-all text-xl mt-8 flex items-center gap-3 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${isMenuOpen
+            className={`bg-gold-500 text-brand-950 px-8 py-4 rounded-full font-bold hover:bg-gold-400 transition-all text-lg mt-6 flex items-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${isMenuOpen
               ? "translate-y-0 opacity-100"
               : "translate-y-10 opacity-0"
-              } duration-500`}
+              } duration-500 active:scale-95`}
           >
-            <HeartHandshake className="w-6 h-6 fill-current" /> এখনই দান করুন
+            <HeartHandshake className="w-5 h-5 fill-current" /> এখনই দান করুন
           </Button>
         </nav>
       </div>

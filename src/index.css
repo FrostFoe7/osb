@@ -31,7 +31,7 @@ h4,
 h5,
 h6,
 a {
-  font-family: "Hind Siliguri", "Noto Serif Bengali", sans-serif !important;
+  font-family: "SolaimanLipi", "Hind Siliguri", "Noto Serif Bengali", sans-serif !important;
   line-height: 1.5;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -165,8 +165,8 @@ button:hover {
   --color-ring: var(--ring);
 
   /* OSB Custom Theme */
-  --font-sans: "Hind Siliguri", sans-serif;
-  --font-serif: "Noto Serif Bengali", serif;
+  --font-sans: "SolaimanLipi", "Hind Siliguri", sans-serif;
+  --font-serif: "SolaimanLipi", "Noto Serif Bengali", serif;
   --font-arabic: "Amiri", serif;
 
   --default-font-family: var(--font-sans);
@@ -295,6 +295,7 @@ button:hover {
         var(--color-gold-500) 50%,
         var(--color-gold-300) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 

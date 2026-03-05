@@ -12,27 +12,27 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ blog, onBack }) => {
   return (
     <div
       id="page-blog-details"
-      className="pt-32 pb-24 min-h-screen animate-fade-in"
+      className="pt-24 md:pt-32 pb-16 md:pb-24 min_h_screen animate-fade-in"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Button
           onClick={onBack}
           variant="outline"
-          className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 py-2 rounded-full bg-brand-50/5 h-auto"
+          className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 py-2 rounded-full bg-brand-50/5 h-auto text-sm"
         >
           <ArrowLeft className="w-4 h-4" /> প্রবন্ধ লিস্টে ফিরে যান
         </Button>
 
-        <div className="glass-card-dark rounded-[2.5rem] p-6 sm:p-8 md:p-12">
-          <div className="mb-8 border-b border-brand-50/10 pb-8">
-            <span className="text-gold-500 font-bold tracking-wider text-sm mb-4 block">
+        <div className="glass-card-dark rounded-3xl md:rounded-[2.5rem] p-6 md:p-12">
+          <div className="mb-6 md:mb-8 border-b border-brand-50/10 pb-6 md:pb-8">
+            <span className="text-gold-500 font-bold tracking-wider text-xs md:text-sm mb-3 md:mb-4 block">
               {blog.date}
             </span>
-            <h1 className="text-3xl md:text-5xl font-serif font-bold text-brand-50 leading-tight">
+            <h1 className="text-2xl md:text-5xl font-serif font-bold text-brand-50 leading-tight">
               {blog.title}
             </h1>
           </div>
-          <div className="text-brand-100/80 text-lg leading-relaxed space-y-6 font-light">
+          <div className="text-brand-100/80 text-base md:text-lg leading-relaxed space-y-6 font-light">
             <p>{blog.content}</p>
             {/* Extended content for demo */}
             <p>
