@@ -5,7 +5,6 @@ import Footer from "./components/Footer";
 import Hero from "./components/sections/Hero";
 import NoticeBanner from "./components/sections/NoticeBanner";
 import Mission from "./components/sections/Mission";
-import Process from "./components/sections/Process";
 import Activities from "./components/sections/Activities";
 import ZakatCalculator from "./components/sections/ZakatCalculator";
 import MediaCards from "./components/sections/MediaCards";
@@ -33,7 +32,6 @@ const App: React.FC = () => {
     // If it's a section on home page
     const sections = [
       "mission",
-      "process",
       "activities",
       "zakat",
       "contact",
@@ -84,7 +82,6 @@ const App: React.FC = () => {
       const sections = [
         "hero",
         "mission",
-        "process",
         "activities",
         "zakat",
         "contact",
@@ -124,7 +121,6 @@ const App: React.FC = () => {
             />
             <NoticeBanner />
             <Mission />
-            <Process />
             <Activities />
             <ZakatCalculator />
             <MediaCards onNavigate={navigateTo} />

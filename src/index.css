@@ -197,8 +197,11 @@ button:hover {
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
+  --animate-bounce-subtle: bounceSubtle 2s ease-in-out infinite;
 
   @keyframes float {
+
     0%,
     100% {
       transform: translateY(0);
@@ -210,6 +213,7 @@ button:hover {
   }
 
   @keyframes pulse-glow {
+
     0%,
     100% {
       opacity: 1;
@@ -231,6 +235,30 @@ button:hover {
     100% {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounceSubtle {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
     }
   }
 
@@ -262,12 +290,10 @@ button:hover {
   }
 
   .gold-gradient-text {
-    background: linear-gradient(
-      135deg,
-      var(--color-gold-100) 0%,
-      var(--color-gold-500) 50%,
-      var(--color-gold-300) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--color-gold-100) 0%,
+        var(--color-gold-500) 50%,
+        var(--color-gold-300) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

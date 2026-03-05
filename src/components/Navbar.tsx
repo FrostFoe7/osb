@@ -21,7 +21,6 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
 
   const navLinks = [
     { name: "আমাদের মিশন", id: "mission", label: "আমাদের মিশন" },
-    { name: "কর্মপদ্ধতি", id: "process", label: "কর্মপদ্ধতি" },
     { name: "কার্যক্রম", id: "activities", label: "কার্যক্রম" },
     { name: "জাকাত", id: "zakat", label: "জাকাত" },
     { name: "যোগাযোগ", id: "contact", label: "যোগাযোগ" },
@@ -30,26 +29,32 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
   return (
     <>
       <nav
-        className={`fixed w-full z-50 transition-all duration-500 ${
-          isScrolled
-            ? "py-2 bg-brand-950/80 backdrop-blur-xl border-b border-gold-500/20 shadow-lg"
-            : "py-4 bg-transparent"
-        }`}
+        className={`fixed w-full z-50 transition-all duration-500 ${isScrolled
+          ? "py-2 bg-brand-950/80 backdrop-blur-xl border-b border-gold-500/20 shadow-lg"
+          : "py-4 bg-transparent"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo Area */}
             <div
               onClick={() => onNavigate("hero")}
-              className="flex-shrink-0 flex items-center gap-3 cursor-pointer group"
+              className="flex-shrink-0 flex items-center gap-4 cursor-pointer group"
             >
-              <div className="w-12 h-12 bg-brand-900 rounded-xl flex items-center justify-center text-gold-400 font-serif font-bold text-2xl border-2 border-gold-500/30 group-hover:border-gold-400 transition-all duration-500 shadow-sm relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span className="relative z-10">O</span>
+              <div className="relative">
+                <div className="w-12 h-12 bg-brand-900 rounded-2xl flex items-center justify-center text-gold-400 font-serif font-bold text-2xl border border-gold-500/30 group-hover:border-gold-400 group-hover:scale-105 transition-all duration-500 shadow-lg relative overflow-hidden z-10">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                  <span className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">O</span>
+                </div>
+                {/* Decorative background glow */}
+                <div className="absolute -inset-1 bg-gold-500/20 rounded-[1.2rem] blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-0"></div>
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-2xl text-brand-50 tracking-wide leading-none group-hover:text-gold-400 transition-colors">
+              <div className="flex flex-col -space-y-1">
+                <span className="font-serif font-bold text-2xl text-brand-50 tracking-wide group-hover:text-gold-400 transition-colors duration-300">
                   OSB
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-gold-500/80 group-hover:text-gold-400 transition-colors duration-300">
+                  Foundation
                 </span>
               </div>
             </div>
@@ -60,17 +65,15 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 <button
                   key={link.id}
                   onClick={() => onNavigate(link.id)}
-                  className={`text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold-400 relative group ${
-                    activeSection === link.id
-                      ? "text-gold-400"
-                      : "text-brand-50/80"
-                  }`}
+                  className={`text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold-400 relative group ${activeSection === link.id
+                    ? "text-gold-400"
+                    : "text-brand-50/80"
+                    }`}
                 >
                   {link.label}
                   <span
-                    className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-400 transition-all duration-300 group-hover:w-full ${
-                      activeSection === link.id ? "w-full" : ""
-                    }`}
+                    className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-400 transition-all duration-300 group-hover:w-full ${activeSection === link.id ? "w-full" : ""
+                      }`}
                   ></span>
                 </button>
               ))}
@@ -97,9 +100,8 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-[60] bg-brand-950 flex flex-col items-center justify-center transition-transform duration-700 ease-in-out ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed inset-0 z-[60] bg-brand-950 flex flex-col items-center justify-center transition-transform duration-700 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <button
           className="absolute top-8 right-8 text-brand-50 hover:text-gold-400 p-2"
@@ -108,8 +110,13 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
           <X className="w-8 h-8" />
         </button>
 
-        <div className="w-16 h-16 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center text-brand-950 font-serif font-bold text-3xl mb-10 shadow-lg shadow-gold-500/20 border-2 border-brand-900">
-          O
+        <div className="relative group mb-8">
+          <div className="w-20 h-20 bg-gradient-to-br from-gold-400/20 to-gold-600/20 backdrop-blur-md rounded-3xl flex items-center justify-center text-gold-400 font-serif font-bold text-4xl shadow-xl shadow-gold-500/10 border border-gold-500/30">
+            O
+          </div>
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] font-bold text-gold-500">
+            Foundation
+          </div>
         </div>
 
         <nav className="flex flex-col items-center space-y-8 w-full px-10">
@@ -121,15 +128,13 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 setIsMenuOpen(false);
               }}
               style={{ transitionDelay: `${idx * 100}ms` }}
-              className={`text-3xl font-serif transition-all duration-500 transform ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-10 opacity-0"
-              } ${
-                activeSection === link.id
+              className={`text-3xl font-serif transition-all duration-500 transform ${isMenuOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
+                } ${activeSection === link.id
                   ? "text-gold-400"
                   : "text-brand-50 hover:text-gold-400"
-              }`}
+                }`}
             >
               {link.name}
             </button>
@@ -141,11 +146,10 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
               setIsMenuOpen(false);
             }}
             style={{ transitionDelay: `${navLinks.length * 100}ms` }}
-            className={`bg-gold-500 text-brand-950 px-10 py-5 rounded-full font-bold hover:bg-gold-400 transition-all text-xl mt-8 flex items-center gap-3 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${
-              isMenuOpen
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            } duration-500`}
+            className={`bg-gold-500 text-brand-950 px-10 py-5 rounded-full font-bold hover:bg-gold-400 transition-all text-xl mt-8 flex items-center gap-3 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${isMenuOpen
+              ? "translate-y-0 opacity-100"
+              : "translate-y-10 opacity-0"
+              } duration-500`}
           >
             <HeartHandshake className="w-6 h-6 fill-current" /> এখনই দান করুন
           </Button>
