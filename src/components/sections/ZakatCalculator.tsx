@@ -70,7 +70,7 @@ const ZakatCalculator: React.FC = () => {
   const [formData, setFormData] = useState<FormState>(initialFormState);
   const [isFormVisible, setIsFormVisible] = useState(true);
   const formRef = useRef<HTMLDivElement>(null);
-  
+
   const NISAB_VALUE = 228375;
   const LAST_UPDATED = "২৮/০২/২০২৬";
 
@@ -118,11 +118,11 @@ const ZakatCalculator: React.FC = () => {
   };
 
   const renderInputField = (id: keyof FormState, label: string, index: number) => (
-    <div 
-      className="space-y-2 group animate-fade-in-up" 
+    <div
+      className="space-y-1.5 md:space-y-2 group animate-fade-in-up"
       style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
     >
-      <Label htmlFor={id} className="text-[13px] font-medium text-brand-100/70 group-focus-within:text-gold-400 transition-colors block leading-snug">
+      <Label htmlFor={id} className="text-[12px] md:text-[13px] font-medium text-brand-100/70 group-focus-within:text-gold-400 transition-colors block leading-snug">
         {label}
       </Label>
       <div className="relative">
@@ -135,7 +135,7 @@ const ZakatCalculator: React.FC = () => {
           inputMode="decimal"
           value={formData[id]}
           onChange={(e) => handleInputChange(id, e.target.value)}
-          className="w-full bg-brand-950/20 border-brand-50/5 rounded-xl h-11 pl-9 pr-4 text-brand-50 focus:ring-1 focus:ring-gold-500/50 focus:border-gold-500/30 transition-all border group-hover:border-brand-50/10 text-sm"
+          className="w-full bg-brand-950/20 border-brand-50/5 rounded-xl h-10 md:h-11 pl-9 pr-4 text-brand-50 focus:ring-1 focus:ring-gold-500/50 focus:border-gold-500/30 transition-all border group-hover:border-brand-50/10 text-sm md:text-base"
           placeholder="০"
         />
       </div>
@@ -143,67 +143,65 @@ const ZakatCalculator: React.FC = () => {
   );
 
   return (
-    <section id="zakat" className="py-24 border-t border-brand-50/5 relative overflow-hidden bg-brand-950">
+    <section id="zakat" className="py-12 md:py-24 border-t border-brand-50/5 relative overflow-hidden bg-brand-950">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 blur-[120px] -z-10 rounded-full"></div>
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[120px] -z-10 rounded-full"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-brand-50 inline-block pb-2 tracking-tight">
+        <div className="text-center mb-10 animate-fade-in px-2">
+          <h2 className="text-2xl md:text-5xl font-serif font-bold text-brand-50 inline-block pb-1 md:pb-2 tracking-tight">
             জাকাত ক্যালকুলেটর
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4 rounded-full opacity-60"></div>
-          <p className="mt-6 text-brand-100/50 max-w-2xl mx-auto font-light text-sm md:text-base leading-relaxed">
+          <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-2 md:mt-4 rounded-full opacity-60"></div>
+          <p className="mt-4 md:mt-6 text-brand-100/50 max-w-2xl mx-auto font-light text-xs md:text-base leading-relaxed">
             আপনার সম্পদের সঠিক হিসাব করে জাকাত প্রদানের মাধ্যমে তা পবিত্র করুন। আস-সুন্নাহ ফাউন্ডেশনের মানদণ্ড অনুযায়ী পরিমার্জিত।
           </p>
         </div>
 
-        <div ref={formRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div ref={formRef} className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-start">
           {/* Main Calculator Area */}
           <div className="lg:col-span-8 space-y-6">
             <div className="glass-card-dark rounded-[2rem] border border-brand-50/10 shadow-2xl relative overflow-hidden flex flex-col transition-all duration-500 hover:shadow-gold-500/5">
-              
+
               {/* Stepper Header */}
               <div className="p-5 sm:p-8 border-b border-brand-50/5 bg-brand-900/10">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gold-500/10 rounded-2xl flex items-center justify-center border border-gold-500/20 shadow-inner">
-                      <Calculator className="w-6 h-6 text-gold-400" />
+                  <div className="flex items-center gap-3 md:gap-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gold-500/10 rounded-xl md:rounded-2xl flex items-center justify-center border border-gold-500/20 shadow-inner">
+                      <Calculator className="w-5 h-5 md:w-6 md:h-6 text-gold-400" />
                     </div>
                     <div>
-                      <h3 className="font-serif font-bold text-lg md:text-xl text-brand-50">হিসাব প্রক্রিয়া</h3>
-                      <p className="text-[10px] text-gold-500/50 uppercase tracking-[0.2em] mt-0.5 font-bold">Step {step} of 2</p>
+                      <h3 className="font-serif font-bold text-base md:text-xl text-brand-50">হিসাব প্রক্রিয়া</h3>
+                      <p className="text-[9px] md:text-[10px] text-gold-500/50 uppercase tracking-[0.2em] mt-0.5 font-bold">Step {step} of 2</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-3">
                     {[1, 2].map((s) => (
                       <div key={s} className="flex flex-col items-center gap-2">
                         <div
-                          className={`h-1.5 w-12 sm:w-16 rounded-full transition-all duration-700 ${
-                            step >= s ? "bg-gold-500 shadow-[0_0_10px_rgba(212,175,55,0.4)]" : "bg-brand-50/10"
-                          }`}
+                          className={`h-2 w-14 sm:w-16 rounded-full transition-all duration-700 ${step >= s ? "bg-gold-500 shadow-[0_0_12px_rgba(212,175,55,0.5)]" : "bg-brand-50/10"
+                            }`}
                         ></div>
-                        <span className={`text-[10px] font-bold uppercase tracking-widest ${
-                          step === s ? "text-gold-400" : "text-brand-100/30"
-                        }`}>
+                        <span className={`text-[10px] font-bold uppercase tracking-widest ${step === s ? "text-gold-400" : "text-brand-100/30"
+                          }`}>
                           {s === 1 ? "Assets" : "Liabilities"}
                         </span>
                       </div>
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2 text-gold-400/90 font-medium">
                   {step === 1 ? (
                     <div className="flex items-center gap-2 animate-fade-in">
-                      <Wallet className="w-5 h-5 text-gold-500" /> 
+                      <Wallet className="w-5 h-5 text-gold-500" />
                       <span className="text-base md:text-lg">ধাপ ১: জাকাতযোগ্য সম্পদ</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 animate-fade-in">
-                      <Landmark className="w-5 h-5 text-gold-500" /> 
+                      <Landmark className="w-5 h-5 text-gold-500" />
                       <span className="text-base md:text-lg">ধাপ ২: দায়-দেনা (ঋণ)</span>
                     </div>
                   )}
@@ -290,13 +288,13 @@ const ZakatCalculator: React.FC = () => {
               </div>
 
               {/* Navigation Footer */}
-              <div className="p-6 sm:p-8 border-t border-brand-50/5 bg-brand-900/10 flex flex-col sm:flex-row gap-4 sm:justify-between items-center">
-                <div className="flex gap-4 w-full sm:w-auto order-2 sm:order-1">
+              <div className="p-5 md:p-8 border-t border-brand-50/5 bg-brand-900/10 flex flex-col sm:flex-row gap-3 sm:justify-between items-center">
+                <div className="flex gap-3 w-full sm:w-auto order-2 sm:order-1">
                   {step === 2 && (
                     <Button
                       onClick={() => changeStep(1)}
                       variant="outline"
-                      className="flex-1 sm:flex-none border-brand-50/10 text-brand-100 hover:bg-brand-50/5 rounded-xl px-6 h-12"
+                      className="flex-1 sm:flex-none border-brand-50/10 text-brand-100 hover:bg-brand-50/5 rounded-xl px-4 md:px-6 h-11 md:h-12"
                     >
                       <ArrowLeft className="w-4 h-4 mr-2" /> ফিরে যান
                     </Button>
@@ -304,40 +302,40 @@ const ZakatCalculator: React.FC = () => {
                   <Button
                     onClick={() => setFormData(initialFormState)}
                     variant="ghost"
-                    className="flex-1 sm:flex-none text-brand-100/40 hover:text-red-400 hover:bg-red-400/5 h-12 rounded-xl text-sm"
+                    className="flex-1 sm:flex-none text-brand-100/40 hover:text-red-400 hover:bg-red-400/5 h-11 md:h-12 rounded-xl text-[13px] md:text-sm"
                   >
                     সব মুছুন
                   </Button>
                 </div>
-                
+
                 {step === 1 ? (
                   <Button
                     onClick={() => changeStep(2)}
-                    className="w-full sm:w-auto order-1 sm:order-2 bg-gold-500 text-brand-950 font-bold px-10 rounded-xl hover:bg-gold-400 group h-12 shadow-lg shadow-gold-500/20"
+                    className="w-full sm:w-auto order-1 sm:order-2 bg-gold-500 text-brand-950 font-bold px-8 md:px-10 rounded-xl hover:bg-gold-400 group h-11 md:h-12 shadow-lg shadow-gold-500/20"
                   >
                     পরবর্তী ধাপ <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 ) : (
                   <Button
                     onClick={() => {
-                        const element = document.getElementById('zakat-result');
-                        element?.scrollIntoView({ behavior: 'smooth' });
+                      const element = document.getElementById('zakat-result');
+                      element?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="w-full sm:w-auto order-1 sm:order-2 bg-green-600 text-white font-bold px-10 rounded-xl hover:bg-green-500 h-12 shadow-lg shadow-green-600/20"
+                    className="w-full sm:w-auto order-1 sm:order-2 bg-green-600 text-white font-bold px-8 md:px-10 rounded-xl hover:bg-green-500 h-11 md:h-12 shadow-lg shadow-green-600/20 uppercase tracking-wide text-xs md:text-sm"
                   >
                     হিসাব দেখুন <ChevronUp className="w-4 h-4 ml-2" />
                   </Button>
                 )}
               </div>
             </div>
-            
+
             {/* Warning Section */}
-            <div className="glass-card-dark rounded-2xl p-6 border border-red-500/10 bg-red-500/5 animate-fade-in group">
-              <div className="flex items-center gap-3 mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-500 group-hover:scale-110 transition-transform" />
-                <h5 className="font-bold text-red-400 text-base md:text-lg">জরুরি সতর্কবার্তা:</h5>
+            <div className="glass-card-dark rounded-xl md:rounded-2xl p-4 md:p-6 border border-red-500/10 bg-red-500/5 animate-fade-in group">
+              <div className="flex items-center gap-3 mb-3 md:mb-4">
+                <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-red-500 group-hover:scale-110 transition-transform" />
+                <h5 className="font-bold text-red-400 text-sm md:text-lg">জরুরি সতর্কবার্তা:</h5>
               </div>
-              <p className="text-[13px] text-brand-100/50 leading-loose text-justify font-light">
+              <p className="text-[11px] md:text-[13px] text-brand-100/50 leading-relaxed md:leading-loose text-justify font-light">
                 এই ডিজিটাল ক্যালকুলেটরটি শুধুমাত্র আপনাকে একটি প্রাথমিক ধারণা প্রদানের জন্য তৈরি করা হয়েছে। যাকাত একটি ফরয ইবাদত, তাই সূক্ষ্ম হিসাবের জন্য আপনার নিকটস্থ নির্ভরযোগ্য অভিজ্ঞ মুফতি বা আলেমের পরামর্শ গ্রহণ করা একান্ত কাম্য। তথ্যের ভুল ইনপুটের জন্য ভুল হিসাব আসলে আস-সুন্নাহ ফাউন্ডেশন বা ডেভেলপার টিম দায়ী থাকবে না।
               </p>
             </div>
@@ -346,26 +344,26 @@ const ZakatCalculator: React.FC = () => {
           {/* Right Sidebar */}
           <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-24" id="zakat-result">
             {/* Net Result Card */}
-            <div className="glass-card-dark rounded-[2.5rem] p-8 border border-gold-500/30 bg-gradient-to-br from-brand-900/40 via-brand-950/20 to-brand-900/40 shadow-2xl relative overflow-hidden group animate-fade-in">
+            <div className="glass-card-dark rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 border border-gold-500/30 bg-gradient-to-br from-brand-900/40 via-brand-950/20 to-brand-900/40 shadow-2xl relative overflow-hidden group animate-fade-in">
               <div className="absolute inset-0 bg-gold-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative z-10 text-center">
-                <p className="text-gold-500/50 text-[11px] font-bold uppercase tracking-[0.2em] mb-3">সম্ভাব্য জাকাত</p>
-                <div className="text-5xl md:text-6xl font-black text-gold-400 mb-6 drop-shadow-[0_2px_10px_rgba(212,175,55,0.3)] font-sans tracking-tighter">
+                <p className="text-gold-500/50 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] mb-2 md:mb-3">সম্ভাব্য জাকাত</p>
+                <div className="text-4xl md:text-6xl font-black text-gold-400 mb-4 md:mb-6 drop-shadow-[0_2px_10px_rgba(212,175,55,0.3)] font-sans tracking-tighter">
                   ৳{formatter.format(totals.zakatDue)}
                 </div>
-                
-                <div className="space-y-4 mb-8">
-                  <div className="flex justify-between items-center text-xs py-3 border-b border-brand-50/5">
+
+                <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                  <div className="flex justify-between items-center text-[11px] md:text-xs py-2 md:py-3 border-b border-brand-50/5">
                     <span className="text-brand-100/40 font-medium">মোট সম্পদ</span>
                     <span className="text-brand-50 font-bold bg-brand-50/5 px-3 py-1 rounded-full">৳{formatter.format(totals.assets)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-xs py-3 border-b border-brand-50/5">
+                  <div className="flex justify-between items-center text-[11px] md:text-xs py-2 md:py-3 border-b border-brand-50/5">
                     <span className="text-brand-100/40 font-medium">মোট দায় (ঋণ)</span>
                     <span className="text-red-400/80 font-bold bg-red-400/5 px-3 py-1 rounded-full">- ৳{formatter.format(totals.liabilities)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-xs py-4">
+                  <div className="flex justify-between items-center text-[11px] md:text-xs py-3 md:py-4">
                     <span className="text-gold-500 font-bold uppercase tracking-wider">নিট সম্পদ</span>
-                    <span className="text-brand-50 text-base font-black tracking-tight">৳{formatter.format(totals.netAssets)}</span>
+                    <span className="text-brand-50 text-sm md:text-base font-black tracking-tight">৳{formatter.format(totals.netAssets)}</span>
                   </div>
                 </div>
 
@@ -379,7 +377,7 @@ const ZakatCalculator: React.FC = () => {
                       <CheckCircle2 className="w-5 h-5 shrink-0" />
                       <span className="text-[11px] font-bold uppercase tracking-widest">যাকাত ফরজ হওয়ার সম্ভাবনা আছে</span>
                     </div>
-                    <Button 
+                    <Button
                       onClick={() => window.open('https://assunnahfoundation.org/donation/zakat', '_blank')}
                       className="w-full bg-gold-500 hover:bg-gold-400 text-brand-950 font-bold rounded-xl h-11 transition-all"
                     >
@@ -387,7 +385,7 @@ const ZakatCalculator: React.FC = () => {
                     </Button>
                   </div>
                 ) : (
-                   <div className="mt-4 p-4 bg-brand-50/5 rounded-2xl border border-brand-50/5 text-[11px] text-brand-100/30 leading-relaxed font-light">
+                  <div className="mt-4 p-4 bg-brand-50/5 rounded-2xl border border-brand-50/5 text-[11px] text-brand-100/30 leading-relaxed font-light">
                     সম্পদের পরিমাণ নিসাবের উপরে গেলে ২.৫% হারে যাকাত প্রদান করতে হবে।
                   </div>
                 )}
@@ -402,7 +400,7 @@ const ZakatCalculator: React.FC = () => {
                 </h5>
                 <span className="px-2 py-0.5 bg-gold-500/10 text-gold-500 text-[9px] font-bold rounded-full border border-gold-500/20">SILVER BASIS</span>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="bg-brand-950/40 rounded-2xl p-4 border border-brand-50/5 group-hover:bg-brand-950/60 transition-colors">
                   <div className="text-3xl font-black text-gold-400 font-sans tracking-tight mb-1">৳ ২,২৮,৩৭৫</div>
@@ -410,7 +408,7 @@ const ZakatCalculator: React.FC = () => {
                     ৫২.৫ তোলা রুপার বর্তমান বাজারমূল্য অনুযায়ী সর্বনিম্ন নিসাব
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between text-[10px] text-brand-100/40 border-t border-brand-50/5 pt-4">
                   <span className="font-medium">সর্বশেষ হালনাগাদ</span>
                   <span className="text-gold-500/60 font-bold">{LAST_UPDATED}</span>
@@ -420,10 +418,10 @@ const ZakatCalculator: React.FC = () => {
 
             {/* Privacy Promise */}
             <div className="p-4 rounded-xl border border-brand-50/5 bg-brand-50/5 text-center flex items-center justify-center gap-2 animate-fade-in" style={{ animationDelay: '400ms' }}>
-               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-               <p className="text-[10px] text-brand-100/30 uppercase tracking-[0.15em] font-bold">
-                 Data is completely private & never stored
-               </p>
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+              <p className="text-[10px] text-brand-100/30 uppercase tracking-[0.15em] font-bold">
+                Data is completely private & never stored
+              </p>
             </div>
           </div>
         </div>
@@ -431,23 +429,23 @@ const ZakatCalculator: React.FC = () => {
 
       {/* Mobile Sticky Summary Bar */}
       {totals.assets > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 lg:hidden animate-fade-in-up">
-            <div className="glass-card-dark border border-gold-500/30 h-16 rounded-2xl flex items-center justify-between px-6 shadow-2xl backdrop-blur-2xl bg-brand-950/90">
-                <div className="flex flex-col">
-                    <span className="text-[9px] text-gold-500/60 font-bold uppercase tracking-[0.1em]">Your Zakat</span>
-                    <span className="text-xl font-bold text-brand-50 tracking-tight font-sans">৳{formatter.format(totals.zakatDue)}</span>
-                </div>
-                <Button 
-                    onClick={() => {
-                        const element = document.getElementById('zakat-result');
-                        element?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    size="sm"
-                    className="bg-gold-500 text-brand-950 rounded-lg font-bold"
-                >
-                    View Breakdown
-                </Button>
+        <div className="fixed bottom-4 left-4 right-4 z-[100] lg:hidden animate-fade-in-up">
+          <div className="glass-card-dark border border-gold-500/30 h-16 rounded-2xl flex items-center justify-between px-5 shadow-2xl backdrop-blur-3xl bg-brand-950/80">
+            <div className="flex flex-col">
+              <span className="text-[10px] text-gold-500/60 font-bold uppercase tracking-[0.1em]">Your Zakat</span>
+              <span className="text-xl font-bold text-brand-50 tracking-tight font-sans">৳{formatter.format(totals.zakatDue)}</span>
             </div>
+            <Button
+              onClick={() => {
+                const element = document.getElementById('zakat-result');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              size="sm"
+              className="bg-gold-500 text-brand-950 rounded-xl font-bold h-10 px-4 shadow-lg shadow-gold-500/20 active:scale-95 transition-transform"
+            >
+              Breakdown
+            </Button>
+          </div>
         </div>
       )}
     </section>
