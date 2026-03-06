@@ -13,7 +13,7 @@ import {
 const Activities: React.FC = () => {
   const activities = [
     {
-      icon: <TrendingUp className="w-7 h-7 text-brand-100" />,
+      icon: <TrendingUp className="w-7 h-7 text-gold-400 group-hover:text-gold-300 transition-colors" />,
       title: "স্বাবলম্বীকরণ",
     },
     {
@@ -21,15 +21,15 @@ const Activities: React.FC = () => {
       title: "রমাদান বাজার",
     },
     {
-      icon: <Hammer className="w-7 h-7 text-brand-100" />,
+      icon: <Hammer className="w-7 h-7 text-gold-400" />,
       title: "পুনর্বাসন প্রকল্প",
     },
     {
-      icon: <Utensils className="w-7 h-7 text-brand-100" />,
+      icon: <Utensils className="w-7 h-7 text-gold-400" />,
       title: "ইফতার বিতরণ",
     },
     {
-      icon: <Backpack className="w-7 h-7 text-brand-100" />,
+      icon: <Backpack className="w-7 h-7 text-gold-400" />,
       title: "শিক্ষা সামগ্রী",
     },
     {
@@ -67,9 +67,9 @@ const Activities: React.FC = () => {
               <div className="w-10 h-10 md:w-16 md:h-16 bg-brand-900/50 border border-brand-50/10 rounded-full flex items-center justify-center mb-3 md:mb-5">
                 {activity.icon}
               </div>
-              <h4 className="font-serif font-bold text-xs md:text-lg text-brand-50 leading-tight">
+              <p className="text-xs md:text-base text-brand-100/90 leading-relaxed font-medium group-hover:text-brand-50 transition-colors duration-500">
                 {activity.title}
-              </h4>
+              </p>
             </div>
           ))}
         </div>

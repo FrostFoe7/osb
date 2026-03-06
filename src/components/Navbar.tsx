@@ -42,18 +42,21 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
               className="flex-shrink-0 flex items-center gap-3 md:gap-4 cursor-pointer group"
             >
               <div className="relative">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-900 rounded-xl md:rounded-2xl flex items-center justify-center text-gold-400 font-serif font-bold text-xl md:text-2xl border border-gold-500/30 group-hover:border-gold-400 group-hover:scale-105 transition-all duration-500 shadow-lg relative overflow-hidden z-10">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  <span className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">O</span>
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center border border-gold-500/30 group-hover:border-gold-400 group-hover:scale-105 transition-all duration-500 shadow-lg relative overflow-hidden z-10">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/thumbnails/014/172/062/small/islamic-school-icon-design-vector.jpg"
+                    alt="OSB Logo"
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
                 {/* Decorative background glow */}
-                <div className="absolute -inset-1 bg-gold-500/20 rounded-[1rem] md:rounded-[1.2rem] blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-0"></div>
+                <div className="absolute -inset-1 bg-gold-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-0"></div>
               </div>
               <div className="flex flex-col -space-y-1">
                 <span className="font-serif font-bold text-xl md:text-2xl text-brand-50 tracking-wide group-hover:text-gold-400 transition-colors duration-300">
                   OSB
                 </span>
-                <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-gold-500/80 group-hover:text-gold-400 transition-colors duration-300">
+                <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-gold-500 group-hover:text-gold-400 transition-colors duration-300">
                   Foundation
                 </span>
               </div>
@@ -65,9 +68,9 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 <button
                   key={link.id}
                   onClick={() => onNavigate(link.id)}
-                  className={`text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold-400 relative group ${activeSection === link.id
+                  className={`text-sm font-bold tracking-wide transition-all duration-300 hover:text-gold-400 relative group ${activeSection === link.id
                     ? "text-gold-400"
-                    : "text-brand-50/80"
+                    : "text-brand-50"
                     }`}
                 >
                   {link.label}
@@ -111,8 +114,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
         </button>
 
         <div className="relative group mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-gold-400/20 to-gold-600/20 backdrop-blur-md rounded-3xl flex items-center justify-center text-gold-400 font-serif font-bold text-4xl shadow-xl shadow-gold-500/10 border border-gold-500/30">
-            O
+          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl shadow-gold-500/10 border border-gold-500/30 overflow-hidden">
+            <img
+              src="https://static.vecteezy.com/system/resources/thumbnails/014/172/062/small/islamic-school-icon-design-vector.jpg"
+              alt="OSB Logo"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] font-bold text-gold-500">
             Foundation

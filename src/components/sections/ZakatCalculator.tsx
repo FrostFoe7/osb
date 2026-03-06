@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
-import { Calculator, ArrowRight, ArrowLeft, Info, AlertTriangle, CheckCircle2, Wallet, Landmark, ChevronUp } from "lucide-react";
+import { Calculator, ArrowRight, ArrowLeft, Info, CheckCircle2, Wallet, Landmark, ChevronUp, ChevronDown, Moon, Sun, Gem, Building2, Tractor, Banknote } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -8,6 +8,7 @@ interface FormState {
   // Step 1: Assets
   goldValue: string;
   silverValue: string;
+  preciousItems: string; // Diamonds, Pearls, etc.
   cashInHand: string;
   foreignCurrency: string;
   bankBalance: string;
@@ -22,6 +23,8 @@ interface FormState {
   businessReceivable: string;
   businessStock: string;
   businessAssetsForSale: string;
+  realEstateForSale: string; // Land, Flats, etc.
+  commercialFarms: string; // Poultry, Fish, Nursery, etc.
   ventureCapital: string;
   investmentCapital: string;
   stockMarketCapitalGain: string;
@@ -39,6 +42,7 @@ interface FormState {
 const initialFormState: FormState = {
   goldValue: "",
   silverValue: "",
+  preciousItems: "",
   cashInHand: "",
   foreignCurrency: "",
   bankBalance: "",
@@ -53,6 +57,8 @@ const initialFormState: FormState = {
   businessReceivable: "",
   businessStock: "",
   businessAssetsForSale: "",
+  realEstateForSale: "",
+  commercialFarms: "",
   ventureCapital: "",
   investmentCapital: "",
   stockMarketCapitalGain: "",
@@ -69,10 +75,20 @@ const ZakatCalculator: React.FC = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormState>(initialFormState);
   const [isFormVisible, setIsFormVisible] = useState(true);
+  const [isSolarYear, setIsSolarYear] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<string[]>(["jewelry"]);
   const formRef = useRef<HTMLDivElement>(null);
 
+  const toggleSection = (id: string) => {
+    setExpandedSections(prev =>
+      prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
+    );
+  };
+
+  const isExpanded = (id: string) => expandedSections.includes(id);
+
   const NISAB_VALUE = 228375;
-  const LAST_UPDATED = "২৮/০২/২০২৬";
+  const LAST_UPDATED = "০৬/০৩/২০২৬";
 
   const handleInputChange = (field: keyof FormState, value: string) => {
     if (value === "" || /^\d*\.?\d*$/.test(value)) {
@@ -82,12 +98,12 @@ const ZakatCalculator: React.FC = () => {
 
   const totals = useMemo(() => {
     const assets = [
-      formData.goldValue, formData.silverValue, formData.cashInHand, formData.foreignCurrency,
+      formData.goldValue, formData.silverValue, formData.preciousItems, formData.cashInHand, formData.foreignCurrency,
       formData.bankBalance, formData.savingsCertificates, formData.insurancePremium, formData.providentFund,
       formData.loanReceivable, formData.depositedMoney, formData.securityMoney, formData.otherSecurity,
       formData.businessCash, formData.businessReceivable, formData.businessStock, formData.businessAssetsForSale,
-      formData.ventureCapital, formData.investmentCapital, formData.stockMarketCapitalGain,
-      formData.stockMarketDividend, formData.stockMarketDividendMarketValue
+      formData.realEstateForSale, formData.commercialFarms, formData.ventureCapital, formData.investmentCapital,
+      formData.stockMarketCapitalGain, formData.stockMarketDividend, formData.stockMarketDividendMarketValue
     ].reduce((sum, val) => sum + (parseFloat(val) || 0), 0);
 
     const liabilities = [
@@ -96,10 +112,11 @@ const ZakatCalculator: React.FC = () => {
     ].reduce((sum, val) => sum + (parseFloat(val) || 0), 0);
 
     const netAssets = Math.max(0, assets - liabilities);
-    const zakatDue = netAssets >= NISAB_VALUE ? netAssets * 0.025 : 0;
+    const rate = isSolarYear ? 0.02578 : 0.025;
+    const zakatDue = netAssets >= NISAB_VALUE ? netAssets * rate : 0;
 
-    return { assets, liabilities, netAssets, zakatDue };
-  }, [formData]);
+    return { assets, liabilities, netAssets, zakatDue, rate };
+  }, [formData, isSolarYear]);
 
   const formatter = new Intl.NumberFormat("bn-BD", {
     minimumFractionDigits: 0,
@@ -122,11 +139,11 @@ const ZakatCalculator: React.FC = () => {
       className="space-y-1.5 md:space-y-2 group animate-fade-in-up"
       style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
     >
-      <Label htmlFor={id} className="text-[12px] md:text-[13px] font-medium text-brand-100/70 group-focus-within:text-gold-400 transition-colors block leading-snug">
+      <Label htmlFor={id} className="text-[12px] md:text-[13px] font-bold text-brand-100 group-focus-within:text-gold-400 transition-colors block leading-snug">
         {label}
       </Label>
       <div className="relative">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-500/50 font-medium select-none text-sm">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-500 font-bold select-none text-sm">
           ৳
         </div>
         <Input
@@ -135,7 +152,7 @@ const ZakatCalculator: React.FC = () => {
           inputMode="decimal"
           value={formData[id]}
           onChange={(e) => handleInputChange(id, e.target.value)}
-          className="w-full bg-brand-950/20 border-brand-50/5 rounded-xl h-10 md:h-11 pl-9 pr-4 text-brand-50 focus:ring-1 focus:ring-gold-500/50 focus:border-gold-500/30 transition-all border group-hover:border-brand-50/10 text-sm md:text-base"
+          className="w-full bg-brand-950/40 border-gold-500/20 rounded-xl h-10 md:h-11 pl-9 pr-4 text-brand-50 focus:ring-1 focus:ring-gold-500 focus:border-gold-500/50 transition-all border group-hover:border-gold-500/40 text-sm md:text-base font-medium"
           placeholder="০"
         />
       </div>
@@ -153,9 +170,9 @@ const ZakatCalculator: React.FC = () => {
           <h2 className="text-2xl md:text-5xl font-serif font-bold text-brand-50 inline-block pb-1 md:pb-2 tracking-tight">
             জাকাত ক্যালকুলেটর
           </h2>
-          <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-2 md:mt-4 rounded-full opacity-60"></div>
-          <p className="mt-4 md:mt-6 text-brand-100/50 max-w-2xl mx-auto font-light text-xs md:text-base leading-relaxed">
-            আপনার সম্পদের সঠিক হিসাব করে জাকাত প্রদানের মাধ্যমে তা পবিত্র করুন। আস-সুন্নাহ ফাউন্ডেশনের মানদণ্ড অনুযায়ী পরিমার্জিত।
+          <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-2 md:mt-4 rounded-full opacity-80"></div>
+          <p className="mt-4 md:mt-6 text-brand-100/90 max-w-2xl mx-auto font-medium text-xs md:text-base leading-relaxed">
+            আপনার সম্পদের সঠিক হিসাব করে জাকাত প্রদানের মাধ্যমে তা পবিত্র করুন। শরিয়াহ ভিত্তিক ও নির্ভরযোগ্য মানদণ্ড অনুযায়ী পরিমার্জিত।
           </p>
         </div>
 
@@ -172,24 +189,25 @@ const ZakatCalculator: React.FC = () => {
                       <Calculator className="w-5 h-5 md:w-6 md:h-6 text-gold-400" />
                     </div>
                     <div>
-                      <h3 className="font-serif font-bold text-base md:text-xl text-brand-50">হিসাব প্রক্রিয়া</h3>
+                      <h3 className="font-serif font-bold text-base md:text-xl text-brand-50">জাকাতের হিসাব</h3>
                       <p className="text-[9px] md:text-[10px] text-gold-500/50 uppercase tracking-[0.2em] mt-0.5 font-bold">Step {step} of 2</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    {[1, 2].map((s) => (
-                      <div key={s} className="flex flex-col items-center gap-2">
-                        <div
-                          className={`h-2 w-14 sm:w-16 rounded-full transition-all duration-700 ${step >= s ? "bg-gold-500 shadow-[0_0_12px_rgba(212,175,55,0.5)]" : "bg-brand-50/10"
-                            }`}
-                        ></div>
-                        <span className={`text-[10px] font-bold uppercase tracking-widest ${step === s ? "text-gold-400" : "text-brand-100/30"
-                          }`}>
-                          {s === 1 ? "Assets" : "Liabilities"}
-                        </span>
-                      </div>
-                    ))}
+                  {/* Year Type Toggle */}
+                  <div className="flex items-center bg-brand-950/40 p-1 rounded-xl border border-brand-50/5">
+                    <button
+                      onClick={() => setIsSolarYear(false)}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${!isSolarYear ? 'bg-gold-500 text-brand-950 shadow-lg' : 'text-brand-100/60 hover:text-brand-100'}`}
+                    >
+                      <Moon className="w-3.5 h-3.5" /> চন্দ্রবর্ষ
+                    </button>
+                    <button
+                      onClick={() => setIsSolarYear(true)}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${isSolarYear ? 'bg-gold-500 text-brand-950 shadow-lg' : 'text-brand-100/60 hover:text-brand-100'}`}
+                    >
+                      <Sun className="w-3.5 h-3.5" /> সৌরবর্ষ
+                    </button>
                   </div>
                 </div>
 
@@ -212,60 +230,135 @@ const ZakatCalculator: React.FC = () => {
               <div className={`p-5 sm:p-8 transition-all duration-300 ${isFormVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
                 {step === 1 ? (
                   <div className="space-y-10">
-                    {/* Group: Cash & Jewelry */}
-                    <div className="space-y-5">
-                      <div className="flex items-center gap-2 border-l-2 border-gold-500/40 pl-3">
-                        <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">নগদ ও অলংকার</h4>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                        {renderInputField("goldValue", "১। স্বর্ণের বর্তমান বিক্রয় মূল্য", 1)}
-                        {renderInputField("silverValue", "২। রৌপ্যের বর্তমান বিক্রয় মূল্য", 2)}
-                        {renderInputField("cashInHand", "৩। নিজের কাছে থাকা নগদ অর্থ", 3)}
-                        {renderInputField("foreignCurrency", "৪। বৈদেশিক মুদ্রার বিক্রয় মূল্য", 4)}
-                      </div>
+                    {/* Group: Jewelry & Valuables */}
+                    <div className="space-y-4 md:space-y-5 glass-card-dark/30 rounded-2xl overflow-hidden border border-brand-50/5">
+                      <button
+                        onClick={() => toggleSection("jewelry")}
+                        className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Gem className="w-4 h-4 text-gold-500/60" />
+                          <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">অলংকার ও মূল্যবান সামগ্রী</h4>
+                        </div>
+                        {isExpanded("jewelry") ? (
+                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                        )}
+                      </button>
+
+                      {isExpanded("jewelry") && (
+                        <div className="p-4 md:p-5 pt-0 md:pt-0 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 animate-fade-in">
+                          {renderInputField("goldValue", "১। স্বর্ণের বর্তমান বাজার মূল্য", 1)}
+                          {renderInputField("silverValue", "২। রৌপ্যের বর্তমান বাজার মূল্য", 2)}
+                          {renderInputField("preciousItems", "৩। হীরা, মণি-মাণিক্য ও মূল্যবান পাথর", 3)}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Group: Banking */}
-                    <div className="space-y-5">
-                      <div className="flex items-center gap-2 border-l-2 border-gold-500/40 pl-3">
-                        <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">ব্যাংক ও সঞ্চয়</h4>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                        {renderInputField("bankBalance", "৫। জমাকৃত অর্থ (ব্যাংক একাউন্ট)", 5)}
-                        {renderInputField("savingsCertificates", "৬। সঞ্চয়পত্র/বন্ড/ট্রেজারি বিল", 6)}
-                        {renderInputField("insurancePremium", "৭। বীমা পলিসিতে জমাকৃত অর্থ", 7)}
-                        {renderInputField("providentFund", "৮। ঐচ্ছিক প্রভিডেন্ট ফান্ড", 8)}
-                      </div>
+                    {/* Group: Cash & Banking */}
+                    <div className="space-y-4 md:space-y-5 glass-card-dark/30 rounded-2xl overflow-hidden border border-brand-50/5">
+                      <button
+                        onClick={() => toggleSection("cash")}
+                        className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Banknote className="w-4 h-4 text-gold-500/60" />
+                          <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">নগদ অর্থ ও ব্যাংক</h4>
+                        </div>
+                        {isExpanded("cash") ? (
+                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                        )}
+                      </button>
+
+                      {isExpanded("cash") && (
+                        <div className="p-4 md:p-5 pt-0 md:pt-0 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 animate-fade-in">
+                          {renderInputField("cashInHand", "৪। নিজের কাছে থাকা নগদ অর্থ", 4)}
+                          {renderInputField("foreignCurrency", "৫। বৈদেশিক মুদ্রার বিক্রয় মূল্য", 5)}
+                          {renderInputField("bankBalance", "৬। ব্যাংক একাউন্টে জমাকৃত অর্থ", 6)}
+                          {renderInputField("savingsCertificates", "৭। সঞ্চয়পত্র/প্রাইজবন্ড/বন্ড/বীমা", 7)}
+                          {renderInputField("providentFund", "৮। প্রভিডেন্ট ফান্ড/পেনশন স্কিম", 8)}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Group: Business */}
-                    <div className="space-y-5">
-                      <div className="flex items-center gap-2 border-l-2 border-gold-500/40 pl-3">
-                        <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">ব্যবসা ও বিনিয়োগ</h4>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                        {renderInputField("businessCash", "৯। ব্যবসার নগদ টাকা", 9)}
-                        {renderInputField("businessReceivable", "১০। ব্যবসার বকেয়া পাওনা", 10)}
-                        {renderInputField("businessStock", "১১। স্টকে থাকা মালের পাইকারি মূল্য", 11)}
-                        {renderInputField("businessAssetsForSale", "১২। বিনিয়োগকৃত সম্পদের বিক্রয় মূল্য", 12)}
-                        {renderInputField("ventureCapital", "১৩। পার্টনারশিপ ব্যবসায় অংশ", 13)}
-                        {renderInputField("investmentCapital", "১৪। ব্যবসায় বিনিয়োগকৃত মূল টাকা", 14)}
-                        {renderInputField("stockMarketCapitalGain", "১৫। শেয়ারের বাজারমূল্য (বিক্রয়যোগ্য)", 15)}
-                        {renderInputField("stockMarketDividend", "১৬। ডিভিডেন্ড ভিত্তিক শেয়ারের অংশ", 16)}
-                      </div>
+                    {/* Group: Business & Investment */}
+                    <div className="space-y-4 md:space-y-5 glass-card-dark/30 rounded-2xl overflow-hidden border border-brand-50/5">
+                      <button
+                        onClick={() => toggleSection("business")}
+                        className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Building2 className="w-4 h-4 text-gold-500/60" />
+                          <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">ব্যবসা ও বিনিয়োগ</h4>
+                        </div>
+                        {isExpanded("business") ? (
+                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                        )}
+                      </button>
+
+                      {isExpanded("business") && (
+                        <div className="p-4 md:p-5 pt-0 md:pt-0 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 animate-fade-in">
+                          {renderInputField("businessCash", "৯। ব্যবসার নগদ টাকা", 9)}
+                          {renderInputField("businessStock", "১০। ব্যবসার মালের পাইকারি মূল্য", 10)}
+                          {renderInputField("stockMarketCapitalGain", "১১। শেয়ারের বাজারমূল্য ও ডিভিডেন্ড", 11)}
+                          {renderInputField("investmentCapital", "১২। মূলধনী বিনিয়োগ ও পার্টনারশিপ", 12)}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Group: Others */}
-                    <div className="space-y-5">
-                      <div className="flex items-center gap-2 border-l-2 border-gold-500/40 pl-3">
-                        <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">অন্যান্য সম্পদ</h4>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                        {renderInputField("loanReceivable", "১৭। ফেরতযোগ্য ঋণের পাওনা অর্থ", 17)}
-                        {renderInputField("depositedMoney", "১৮। কারো কাছে রাখা আমানত", 18)}
-                        {renderInputField("securityMoney", "১৯। ভাড়া সিকিউরিটি মানি", 19)}
-                        {renderInputField("otherSecurity", "২০। অন্যান্য জামানতের অর্থ", 20)}
-                      </div>
+                    {/* Group: Real Estate & Farms */}
+                    <div className="space-y-4 md:space-y-5 glass-card-dark/30 rounded-2xl overflow-hidden border border-brand-50/5">
+                      <button
+                        onClick={() => toggleSection("farms")}
+                        className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Tractor className="w-4 h-4 text-gold-500/60" />
+                          <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">জমি ও বাণিজ্যিক খামার</h4>
+                        </div>
+                        {isExpanded("farms") ? (
+                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                        )}
+                      </button>
+
+                      {isExpanded("farms") && (
+                        <div className="p-4 md:p-5 pt-0 md:pt-0 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 animate-fade-in">
+                          {renderInputField("realEstateForSale", "১৩। বিক্রয়ের জন্য রাখা জমি/ফ্ল্যাট", 13)}
+                          {renderInputField("commercialFarms", "১৪। বাণিজ্যিক খামার (মাছ/মুরগি/ফল)", 14)}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Group: Receivables */}
+                    <div className="space-y-4 md:space-y-5 glass-card-dark/30 rounded-2xl overflow-hidden border border-brand-50/5">
+                      <button
+                        onClick={() => toggleSection("receivables")}
+                        className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <ArrowRight className="w-4 h-4 text-gold-500/60" />
+                          <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">পাওনা অর্থ</h4>
+                        </div>
+                        {isExpanded("receivables") ? (
+                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                        )}
+                      </button>
+
+                      {isExpanded("receivables") && (
+                        <div className="p-4 md:p-5 pt-0 md:pt-0 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 animate-fade-in">
+                          {renderInputField("loanReceivable", "১৫। ফেরতযোগ্য পাওনা ঋণের টাকা", 15)}
+                          {renderInputField("depositedMoney", "১৬। কারো কাছে রাখা আমানত/জামানত", 16)}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ) : (
@@ -273,7 +366,7 @@ const ZakatCalculator: React.FC = () => {
                     <div className="p-4 bg-red-500/5 rounded-2xl border border-red-500/10 flex gap-4">
                       <Info className="w-5 h-5 text-red-500/60 shrink-0 mt-0.5" />
                       <p className="text-sm text-brand-100/60 leading-relaxed italic font-light">
-                        শুধুমাত্র পরিশোধযোগ্য বর্তমান ঋণের কিস্তি বা চলতি দায়সমূহ এখানে প্রদান করুন। ১০ বছরের দীর্ঘমেয়াদী ঋণের সম্পূর্ণ অংশ বাদ দেওয়া যাবে না।
+                        শুধুমাত্র তাৎক্ষণিক পরিশোধযোগ্য ঋণ এবং কিস্তিতে পরিশোধযোগ্য ঋণের চলমান কিস্তির পরিমাণ অর্থ এখানে প্রদান করুন।
                       </p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -281,7 +374,7 @@ const ZakatCalculator: React.FC = () => {
                       {renderInputField("utilityBills", "২। বকেয়া বিল (গ্যাস, বিদ্যুৎ, ইত্যাদি)", 2)}
                       {renderInputField("unpaidSalaries", "৩। বকেয়া বেতন ও মজুরি", 3)}
                       {renderInputField("unpaidTaxes", "৪। বকেয়া সরকারি ট্যাক্স/খাজনা", 4)}
-                      {renderInputField("otherLiabilities", "৫। অন্যান্য ব্যবসায়িক দায়সমূহ", 5)}
+                      {renderInputField("otherLiabilities", "৫। অন্যান্য ব্যবসায়িক চলতি দায়সমূহ", 5)}
                     </div>
                   </div>
                 )}
@@ -294,7 +387,7 @@ const ZakatCalculator: React.FC = () => {
                     <Button
                       onClick={() => changeStep(1)}
                       variant="outline"
-                      className="flex-1 sm:flex-none border-brand-50/10 text-brand-100 hover:bg-brand-50/5 rounded-xl px-4 md:px-6 h-11 md:h-12"
+                      className="flex-1 sm:flex-none border-gold-500/30 text-brand-50 hover:bg-gold-500/10 rounded-xl px-4 md:px-6 h-11 md:h-12 font-bold"
                     >
                       <ArrowLeft className="w-4 h-4 mr-2" /> ফিরে যান
                     </Button>
@@ -302,7 +395,7 @@ const ZakatCalculator: React.FC = () => {
                   <Button
                     onClick={() => setFormData(initialFormState)}
                     variant="ghost"
-                    className="flex-1 sm:flex-none text-brand-100/40 hover:text-red-400 hover:bg-red-400/5 h-11 md:h-12 rounded-xl text-[13px] md:text-sm"
+                    className="flex-1 sm:flex-none text-brand-100/60 hover:text-red-400 hover:bg-red-400/5 h-11 md:h-12 rounded-xl text-[13px] md:text-sm font-bold"
                   >
                     সব মুছুন
                   </Button>
@@ -329,15 +422,18 @@ const ZakatCalculator: React.FC = () => {
               </div>
             </div>
 
-            {/* Warning Section */}
-            <div className="glass-card-dark rounded-xl md:rounded-2xl p-4 md:p-6 border border-red-500/10 bg-red-500/5 animate-fade-in group">
+            {/* Information Notice Section */}
+            <div className="glass-card-dark rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold-500/10 bg-gold-500/5 animate-fade-in group">
               <div className="flex items-center gap-3 mb-3 md:mb-4">
-                <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-red-500 group-hover:scale-110 transition-transform" />
-                <h5 className="font-bold text-red-400 text-sm md:text-lg">জরুরি সতর্কবার্তা:</h5>
+                <Info className="w-5 h-5 md:w-6 md:h-6 text-gold-500 group-hover:scale-110 transition-transform" />
+                <h5 className="font-bold text-gold-500 text-sm md:text-lg">হিসাব পদ্ধতি ও শর্তাবলী:</h5>
               </div>
-              <p className="text-[11px] md:text-[13px] text-brand-100/50 leading-relaxed md:leading-loose text-justify font-light">
-                এই ডিজিটাল ক্যালকুলেটরটি শুধুমাত্র আপনাকে একটি প্রাথমিক ধারণা প্রদানের জন্য তৈরি করা হয়েছে। যাকাত একটি ফরয ইবাদত, তাই সূক্ষ্ম হিসাবের জন্য আপনার নিকটস্থ নির্ভরযোগ্য অভিজ্ঞ মুফতি বা আলেমের পরামর্শ গ্রহণ করা একান্ত কাম্য। তথ্যের ভুল ইনপুটের জন্য ভুল হিসাব আসলে আস-সুন্নাহ ফাউন্ডেশন বা ডেভেলপার টিম দায়ী থাকবে না।
-              </p>
+              <ul className="text-[11px] md:text-[13px] text-brand-100/90 space-y-2 md:space-y-3 font-medium list-disc pl-5">
+                <li>ব্যক্তিগত ব্যবহারের গাড়ি, বাড়ি, জায়গাজমি ও সামগ্রীর ওপর জাকাত ফরজ হয় না।</li>
+                <li>নিসাব পরিমাণ এবং তদূর্ধ্ব সম্পদের মালিককে তার জাকাতযোগ্য সব সম্পদের প্রতি প্রতিবছর ২.৫% (চন্দ্রবর্ষ অনুযায়ী) প্রদান করতে হয়।</li>
+                <li>সৌরবর্ষ অনুযায়ী জাকাত প্রদান করলে ২.৫৮% হারে হিসাব করতে হয়।</li>
+                <li>যৌথ মালিকানাধীন ব্যবসার ক্ষেত্রে অংশীদারদের সম্পদের আলাদা হিসাব করতে হবে।</li>
+              </ul>
             </div>
           </div>
 
@@ -347,23 +443,25 @@ const ZakatCalculator: React.FC = () => {
             <div className="glass-card-dark rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 border border-gold-500/30 bg-gradient-to-br from-brand-900/40 via-brand-950/20 to-brand-900/40 shadow-2xl relative overflow-hidden group animate-fade-in">
               <div className="absolute inset-0 bg-gold-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative z-10 text-center">
-                <p className="text-gold-500/50 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] mb-2 md:mb-3">সম্ভাব্য জাকাত</p>
-                <div className="text-4xl md:text-6xl font-black text-gold-400 mb-4 md:mb-6 drop-shadow-[0_2px_10px_rgba(212,175,55,0.3)] font-sans tracking-tighter">
+                <p className="text-gold-500 font-bold text-[10px] md:text-[11px] uppercase tracking-[0.2em] mb-2 md:mb-3">
+                  সম্ভাব্য জাকাত ({isSolarYear ? 'সৌরবর্ষ' : 'চন্দ্রবর্ষ'})
+                </p>
+                <div className="text-4xl md:text-6xl font-black text-gold-400 mb-4 md:mb-6 drop-shadow-[0_2px_15px_rgba(212,175,55,0.4)] font-sans tracking-tighter">
                   ৳{formatter.format(totals.zakatDue)}
                 </div>
 
                 <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
-                  <div className="flex justify-between items-center text-[11px] md:text-xs py-2 md:py-3 border-b border-brand-50/5">
-                    <span className="text-brand-100/40 font-medium">মোট সম্পদ</span>
-                    <span className="text-brand-50 font-bold bg-brand-50/5 px-3 py-1 rounded-full">৳{formatter.format(totals.assets)}</span>
+                  <div className="flex justify-between items-center text-xs md:text-sm py-2 md:py-3 border-b border-brand-50/10">
+                    <span className="text-brand-100/70 font-bold">মোট সম্পদ</span>
+                    <span className="text-brand-50 font-black bg-brand-50/10 px-3 py-1 rounded-full">৳{formatter.format(totals.assets)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-[11px] md:text-xs py-2 md:py-3 border-b border-brand-50/5">
-                    <span className="text-brand-100/40 font-medium">মোট দায় (ঋণ)</span>
-                    <span className="text-red-400/80 font-bold bg-red-400/5 px-3 py-1 rounded-full">- ৳{formatter.format(totals.liabilities)}</span>
+                  <div className="flex justify-between items-center text-xs md:text-sm py-2 md:py-3 border-b border-brand-50/10">
+                    <span className="text-brand-100/70 font-bold">মোট দায় (ঋণ)</span>
+                    <span className="text-red-400 font-black bg-red-400/10 px-3 py-1 rounded-full">- ৳{formatter.format(totals.liabilities)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-[11px] md:text-xs py-3 md:py-4">
-                    <span className="text-gold-500 font-bold uppercase tracking-wider">নিট সম্পদ</span>
-                    <span className="text-brand-50 text-sm md:text-base font-black tracking-tight">৳{formatter.format(totals.netAssets)}</span>
+                  <div className="flex justify-between items-center text-xs md:text-sm py-3 md:py-4">
+                    <span className="text-gold-500 font-black uppercase tracking-wider">প্রযোজ্য হার</span>
+                    <span className="text-brand-50 font-black text-lg">{(totals.rate * 100).toFixed(2)}%</span>
                   </div>
                 </div>
 
@@ -386,7 +484,7 @@ const ZakatCalculator: React.FC = () => {
                   </div>
                 ) : (
                   <div className="mt-4 p-4 bg-brand-50/5 rounded-2xl border border-brand-50/5 text-[11px] text-brand-100/30 leading-relaxed font-light">
-                    সম্পদের পরিমাণ নিসাবের উপরে গেলে ২.৫% হারে যাকাত প্রদান করতে হবে।
+                    সম্পদের পরিমাণ নিসাবের উপরে গেলে {isSolarYear ? '২.৫৮%' : '২.৫%'} হারে যাকাত প্রদান করতে হবে।
                   </div>
                 )}
               </div>

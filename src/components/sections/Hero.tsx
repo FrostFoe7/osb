@@ -46,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({ onDonateClick, onActivitiesClick }) => {
           <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-gold-500"></div>
         </div>
 
-        <p className="max-w-3xl text-sm md:text-lg lg:text-xl text-brand-100/70 mb-10 md:mb-14 leading-relaxed font-light px-2 sm:px-0">
+        <p className="max-w-3xl text-sm md:text-lg lg:text-xl text-brand-100/90 mb-10 md:mb-14 leading-relaxed font-light px-2 sm:px-0">
           এটি শুধু একটি সংখ্যা নয়, এটি ঐক্য ও সম্মিলিত মানবিকতার প্রতীক। আমাদের
           ছোট ছোট দান একত্রিত হয়ে সৃষ্টি করছে বড় বড় পরিবর্তনের গল্প। আপনার
           সামান্য দানের ঘুরে দাঁড়াতে পারে একটি পরিবার।

@@ -47,7 +47,7 @@ const Mission: React.FC = () => {
               <h3 className="text-xl md:text-2xl font-serif font-bold mb-3 md:mb-4 text-brand-50 group-hover:text-gold-400 transition-colors duration-500">
                 {item.title}
               </h3>
-              <p className="text-xs md:text-base text-brand-100/60 leading-relaxed font-light group-hover:text-brand-100/90 transition-colors duration-500">
+              <p className="text-xs md:text-base text-brand-100/90 leading-relaxed font-medium group-hover:text-brand-50 transition-colors duration-500">
                 {item.description}
               </p>
             </div>

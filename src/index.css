@@ -11,8 +11,8 @@
 }
 
 ::selection {
-  background-color: var(--color-gold-500);
-  color: var(--color-brand-950);
+  background-color: var(--color-gold-400);
+  color: #000000;
 }
 
 html,
@@ -30,12 +30,13 @@ h3,
 h4,
 h5,
 h6,
+h3,
 a {
-  font-family: "SolaimanLipi", "Hind Siliguri", "Noto Serif Bengali", sans-serif !important;
+  font-family: "Hind Siliguri", "Noto Serif Bengali", sans-serif !important;
   line-height: 1.5;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-smoothing: grayscale;
 }
 
 :root {
@@ -165,20 +166,20 @@ button:hover {
   --color-ring: var(--ring);
 
   /* OSB Custom Theme */
-  --font-sans: "SolaimanLipi", "Hind Siliguri", sans-serif;
-  --font-serif: "SolaimanLipi", "Noto Serif Bengali", serif;
+  --font-sans: "Hind Siliguri", sans-serif;
+  --font-serif: "Hind Siliguri", "Noto Serif Bengali", serif;
   --font-arabic: "Amiri", serif;
 
   --default-font-family: var(--font-sans);
 
-  --color-brand-50: #f2fbf5;
-  --color-brand-100: #e1f7e8;
+  --color-brand-50: #f8fafc;
+  --color-brand-100: #f1f5f9;
   --color-brand-500: #39a671;
   --color-brand-600: #278558;
   --color-brand-700: #216a48;
   --color-brand-800: #1d543b;
-  --color-brand-900: #194532;
-  --color-brand-950: #0b271b;
+  --color-brand-900: #0b271b;
+  --color-brand-950: #051a12;
 
   --color-gold-50: #fdfbf6;
   --color-gold-100: #f8f2df;
