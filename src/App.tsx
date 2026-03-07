@@ -1,57 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { Toaster } from "./components/ui/sonner";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Hero from "./components/sections/Hero";
-import NoticeBanner from "./components/sections/NoticeBanner";
-import Mission from "./components/sections/Mission";
-import Activities from "./components/sections/Activities";
-import ZakatCalculator from "./components/sections/ZakatCalculator";
-import MediaCards from "./components/sections/MediaCards";
-import Donate from "./components/sections/Donate";
-import Contact from "./components/sections/Contact";
-import VideosList from "./components/views/VideosList";
-import PhotosList from "./components/views/PhotosList";
-import BlogsList from "./components/views/BlogsList";
-import type { BlogItem } from "./components/views/BlogsList";
-import BlogDetail from "./components/views/BlogDetail";
-
-type PageId =
-  | "home"
-  | "page-videos-list"
-  | "page-photos-list"
-  | "page-blogs-list"
-  | "page-blog-details";
+import React from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Home from "@/pages/Home";
+import Zakat from "@/pages/Zakat";
+import Videos from "@/pages/Videos";
+import Photos from "@/pages/Photos";
+import Blogs from "@/pages/Blogs";
+import BlogDetail from "@/pages/BlogDetail";
+import ScrollToTop from "@/components/ScrollToTop";
+import type { BlogItem } from "@/types/blog";
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<PageId>("home");
-  const [activeSection, setActiveSection] = useState("hero");
-  const [selectedBlog, setSelectedBlog] = useState<BlogItem | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const navigateTo = (pageId: string) => {
+  const handleNavigate = (path: string) => {
     // If it's a section on home page
-    const sections = [
-      "mission",
-      "activities",
-      "zakat",
-      "contact",
-      "donate",
-      "hero",
-    ];
-    if (sections.includes(pageId)) {
-      if (currentPage !== "home") {
-        setCurrentPage("home");
+    const sections = ["mission", "activities", "contact", "donate", "hero"];
+
+    if (sections.includes(path)) {
+      if (location.pathname !== "/") {
+        navigate("/");
         // Wait for render before scrolling
-        setTimeout(() => scrollToSection(pageId), 100);
+        setTimeout(() => scrollToSection(path), 100);
       } else {
-        scrollToSection(pageId);
+        scrollToSection(path);
       }
       return;
     }
 
-    // If it's a subpage
-    setCurrentPage(pageId as PageId);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Standard URL paths
+    if (path === "page-zakat-calculator") {
+      navigate("/zakat");
+    } else if (path === "page-videos-list") {
+      navigate("/videos");
+    } else if (path === "page-photos-list") {
+      navigate("/photos");
+    } else if (path === "page-blogs-list") {
+      navigate("/blogs");
+    } else {
+      navigate(path);
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -61,95 +52,29 @@ const App: React.FC = () => {
       const y =
         element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
-      setActiveSection(sectionId);
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      setActiveSection("hero");
     }
   };
 
   const handleBlogClick = (blog: BlogItem) => {
-    setSelectedBlog(blog);
-    setCurrentPage("page-blog-details");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    navigate(`/blog/${blog.id}`, { state: { blog } });
   };
-
-  // Track active section on scroll
-  useEffect(() => {
-    if (currentPage !== "home") return;
-
-    const handleScroll = () => {
-      const sections = [
-        "hero",
-        "mission",
-        "activities",
-        "zakat",
-        "contact",
-        "donate",
-      ];
-      const scrollPosition = window.scrollY + 150;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [currentPage]);
 
   return (
     <div className="bg-brand-950 text-brand-50 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
-      <Navbar onNavigate={navigateTo} activeSection={activeSection} />
+      <ScrollToTop />
+      <Navbar onNavigate={handleNavigate} />
 
       <main className="flex-grow">
-        {currentPage === "home" && (
-          <div className="animate-fade-in">
-            <Hero
-              onDonateClick={() => navigateTo("donate")}
-              onActivitiesClick={() => navigateTo("activities")}
-            />
-            <NoticeBanner />
-            <Mission />
-            <Activities />
-            <ZakatCalculator />
-            <MediaCards onNavigate={navigateTo} />
-            <Donate />
-            <Contact />
-          </div>
-        )}
-
-        {currentPage === "page-videos-list" && (
-          <VideosList onBack={() => navigateTo("home")} />
-        )}
-
-        {currentPage === "page-photos-list" && (
-          <PhotosList onBack={() => navigateTo("home")} />
-        )}
-
-        {currentPage === "page-blogs-list" && (
-          <BlogsList
-            onBack={() => navigateTo("home")}
-            onBlogClick={handleBlogClick}
-          />
-        )}
-
-        {currentPage === "page-blog-details" && selectedBlog && (
-          <BlogDetail
-            blog={selectedBlog}
-            onBack={() => navigateTo("page-blogs-list")}
-          />
-        )}
+        <Routes>
+          <Route path="/" element={<Home onNavigate={handleNavigate} />} />
+          <Route path="/zakat" element={<Zakat onBack={() => navigate("/")} />} />
+          <Route path="/videos" element={<Videos onBack={() => navigate("/")} />} />
+          <Route path="/photos" element={<Photos onBack={() => navigate("/")} />} />
+          <Route path="/blogs" element={<Blogs onBack={() => navigate("/")} onBlogClick={handleBlogClick} />} />
+          <Route path="/blog/:id" element={<BlogDetail onBack={() => navigate("/blogs")} />} />
+        </Routes>
       </main>
 
       <Footer />

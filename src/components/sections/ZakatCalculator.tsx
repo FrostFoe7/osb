@@ -71,7 +71,11 @@ const initialFormState: FormState = {
   otherLiabilities: "",
 };
 
-const ZakatCalculator: React.FC = () => {
+interface ZakatCalculatorProps {
+  onBack?: () => void;
+}
+
+const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormState>(initialFormState);
   const [isFormVisible, setIsFormVisible] = useState(true);
@@ -160,12 +164,23 @@ const ZakatCalculator: React.FC = () => {
   );
 
   return (
-    <section id="zakat" className="py-12 md:py-24 border-t border-brand-50/5 relative overflow-hidden bg-brand-950">
+    <section id="zakat" className="py-24 md:py-32 relative overflow-hidden bg-brand-950 min-h-screen">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 blur-[120px] -z-10 rounded-full"></div>
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-500/5 blur-[120px] -z-10 rounded-full"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {onBack && (
+          <div className="mb-8 md:mb-12 animate-fade-in">
+            <Button
+              onClick={onBack}
+              variant="ghost"
+              className="text-brand-100/60 hover:text-gold-400 hover:bg-gold-500/10 flex items-center gap-2 font-bold px-4 py-2 rounded-xl transition-all"
+            >
+              <ArrowLeft className="w-5 h-5" /> হোম পেজে ফিরে যান
+            </Button>
+          </div>
+        )}
         <div className="text-center mb-10 animate-fade-in px-2">
           <h2 className="text-2xl md:text-5xl font-serif font-bold text-brand-50 inline-block pb-1 md:pb-2 tracking-tight">
             জাকাত ক্যালকুলেটর

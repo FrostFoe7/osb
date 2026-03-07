@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, HeartHandshake } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 
 interface NavbarProps {
-  onNavigate: (sectionId: string) => void;
-  activeSection: string;
+  onNavigate: (id: string) => void;
+  activeSection?: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +24,17 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
   const navLinks = [
     { name: "আমাদের মিশন", id: "mission", label: "আমাদের মিশন" },
     { name: "কার্যক্রম", id: "activities", label: "কার্যক্রম" },
-    { name: "জাকাত", id: "zakat", label: "জাকাত" },
+    { name: "জাকাত", id: "/zakat", label: "জাকাত" },
     { name: "যোগাযোগ", id: "contact", label: "যোগাযোগ" },
   ];
+
+  const getActiveId = () => {
+    if (location.pathname === "/zakat") return "/zakat";
+    if (location.pathname === "/") return activeSection || "hero";
+    return "";
+  };
+
+  const activeId = getActiveId();
 
   return (
     <>
@@ -49,7 +59,6 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
-                {/* Decorative background glow */}
                 <div className="absolute -inset-1 bg-gold-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-0"></div>
               </div>
               <div className="flex flex-col -space-y-1">
@@ -68,14 +77,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 <button
                   key={link.id}
                   onClick={() => onNavigate(link.id)}
-                  className={`text-sm font-bold tracking-wide transition-all duration-300 hover:text-gold-400 relative group ${activeSection === link.id
-                    ? "text-gold-400"
-                    : "text-brand-50"
+                  className={`text-sm font-bold tracking-wide transition-all duration-300 hover:text-gold-400 relative group ${activeId === link.id ? "text-gold-400" : "text-brand-50"
                     }`}
                 >
                   {link.label}
                   <span
-                    className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-400 transition-all duration-300 group-hover:w-full ${activeSection === link.id ? "w-full" : ""
+                    className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-400 transition-all duration-300 group-hover:w-full ${activeId === link.id ? "w-full" : ""
                       }`}
                   ></span>
                 </button>
@@ -84,15 +91,15 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 onClick={() => onNavigate("donate")}
                 className="bg-gold-500 text-brand-950 px-7 py-2.5 rounded-full font-bold hover:bg-gold-400 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] flex items-center gap-2 transform hover:-translate-y-0.5 border border-transparent"
               >
-                <HeartHandshake className="w-4 h-4" /> অনুদান দিন
+                <Heart className="w-4 h-4" /> অনুদান দিন
               </Button>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center">
               <button
-                className="md:hidden text-brand-50 hover:text-gold-400 transition-colors"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-brand-50 hover:text-gold-400 transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 <Menu className="w-7 h-7" />
               </button>
@@ -103,12 +110,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-[60] bg-brand-950 flex flex-col items-center justify-center transition-transform duration-700 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-0 z-[60] bg-brand-950 flex flex-col items-center justify-center transition-transform duration-700 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
       >
         <button
           className="absolute top-6 right-6 text-brand-50 hover:text-gold-400 p-3 transition-transform active:scale-90"
-          onClick={() => setIsMenuOpen(false)}
+          onClick={() => setIsMobileMenuOpen(false)}
         >
           <X className="w-8 h-8" />
         </button>
@@ -132,16 +139,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
               key={link.id}
               onClick={() => {
                 onNavigate(link.id);
-                setIsMenuOpen(false);
+                setIsMobileMenuOpen(false);
               }}
               style={{ transitionDelay: `${idx * 100}ms` }}
-              className={`text-2xl md:text-3xl font-serif transition-all duration-500 transform ${isMenuOpen
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-                } ${activeSection === link.id
-                  ? "text-gold-400"
-                  : "text-brand-50 hover:text-gold-400"
-                }`}
+              className={`text-2xl md:text-3xl font-serif transition-all duration-500 transform ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                } ${activeId === link.id ? "text-gold-400" : "text-brand-50 hover:text-gold-400"}`}
             >
               {link.name}
             </button>
@@ -150,15 +152,13 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
           <Button
             onClick={() => {
               onNavigate("donate");
-              setIsMenuOpen(false);
+              setIsMobileMenuOpen(false);
             }}
             style={{ transitionDelay: `${navLinks.length * 100}ms` }}
-            className={`bg-gold-500 text-brand-950 px-8 py-4 rounded-full font-bold hover:bg-gold-400 transition-all text-lg mt-6 flex items-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${isMenuOpen
-              ? "translate-y-0 opacity-100"
-              : "translate-y-10 opacity-0"
+            className={`bg-gold-500 text-brand-950 px-8 py-4 rounded-full font-bold hover:bg-gold-400 transition-all text-lg mt-6 flex items-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               } duration-500 active:scale-95`}
           >
-            <HeartHandshake className="w-5 h-5 fill-current" /> এখনই দান করুন
+            <Heart className="w-5 h-5 fill-current" /> এখনই দান করুন
           </Button>
         </nav>
       </div>

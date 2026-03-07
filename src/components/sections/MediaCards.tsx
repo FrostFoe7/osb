@@ -8,7 +8,7 @@ interface MediaCardsProps {
 const MediaCards: React.FC<MediaCardsProps> = ({ onNavigate }) => {
   const cards = [
     {
-      id: "page-videos-list",
+      id: "/videos",
       title: "ভিডিও",
       subtitle: "আমাদের কার্যক্রমের ভিডিও",
       image:
@@ -19,14 +19,14 @@ const MediaCards: React.FC<MediaCardsProps> = ({ onNavigate }) => {
       videoStyle: true,
     },
     {
-      id: "page-photos-list",
+      id: "/photos",
       title: "ছবিসমূহ",
       subtitle: "আমাদের কার্যক্রমের ছবি",
       image:
         "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800",
     },
     {
-      id: "page-blogs-list",
+      id: "/blogs",
       title: "ব্লগসমুহ",
       subtitle: "আমাদের কার্যক্রম নিয়ে প্রবন্ধ",
       icon: (
