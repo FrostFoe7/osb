@@ -1,29 +1,13 @@
 import React from "react";
 import { ArrowLeft, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { videos } from "@/data/db";
 
 interface VideosProps {
     onBack: () => void;
 }
 
 const Videos: React.FC<VideosProps> = ({ onBack }) => {
-    const videos = [
-        {
-            title: "রমাদান বাজার বিতরণ",
-            image:
-                "https://images.unsplash.com/photo-1593113512613-333e8b0a9cb3?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-            title: "সুবিধাবঞ্চিত শিশুদের শিক্ষা",
-            image:
-                "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-            title: "টিউবওয়েল স্থাপন প্রজেক্ট",
-            image:
-                "https://images.unsplash.com/photo-1532629345422-7515f3d16bb0?auto=format&fit=crop&q=80&w=800",
-        },
-    ];
 
     return (
         <div

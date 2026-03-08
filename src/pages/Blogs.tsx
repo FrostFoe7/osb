@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowLeft, BookOpen, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { BlogItem } from "@/types/blog";
+import { blogs } from "@/data/db";
 
 interface BlogsProps {
     onBack: () => void;
@@ -9,24 +10,6 @@ interface BlogsProps {
 }
 
 const Blogs: React.FC<BlogsProps> = ({ onBack, onBlogClick }) => {
-    const blogs: BlogItem[] = [
-        {
-            id: "1",
-            title: "সাদাকাহর মাধ্যমে কীভাবে একটি পরিবার ঘুরে দাঁড়ায়?",
-            content:
-                "আমাদের গত মাসের পুনর্বাসন প্রজেক্টের গল্প। যেখানে সামান্য কিছু অর্থের বিনিময়ে একটি নিঃস্ব পরিবার পেল বাঁচার নতুন অবলম্বন। সমাজকে এগিয়ে নিতে এই ছোট ছোট অবদানগুলো অনেক বড় ভূমিকা পালন করে...",
-            date: "১৫ মার্চ, ২০২৬",
-            icon: "book-open",
-        },
-        {
-            id: "2",
-            title: "দান সম্পদে কমতি আনে না, বরং বৃদ্ধি করে",
-            content:
-                "কুরআন এবং সহিহ হাদিসের আলোকে দানের ফজিলত ও গুরুত্ব সম্পর্কে জানুন। কেন আমাদের নিয়মিত দান করা উচিত। রাসুল (সাঃ) বলেছেন, দান মানুষের সম্পদ কমায় না, বরং এর মধ্যে বরকত দান করে...",
-            date: "১০ মার্চ, ২০২৬",
-            icon: "heart",
-        },
-    ];
 
     return (
         <div
