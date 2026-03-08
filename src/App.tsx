@@ -9,6 +9,8 @@ import Videos from "@/pages/Videos";
 import Photos from "@/pages/Photos";
 import Blogs from "@/pages/Blogs";
 import BlogDetail from "@/pages/BlogDetail";
+import VideoDetail from "@/pages/VideoDetail";
+import PhotoDetail from "@/pages/PhotoDetail";
 import ScrollToTop from "@/components/ScrollToTop";
 import type { BlogItem } from "@/types/blog";
 
@@ -71,7 +73,9 @@ const App: React.FC = () => {
           <Route path="/" element={<Home onNavigate={handleNavigate} />} />
           <Route path="/zakat" element={<Zakat onBack={() => navigate("/")} />} />
           <Route path="/videos" element={<Videos onBack={() => navigate("/")} />} />
+          <Route path="/videos/:id" element={<VideoDetail />} />
           <Route path="/photos" element={<Photos onBack={() => navigate("/")} />} />
+          <Route path="/photos/:id" element={<PhotoDetail />} />
           <Route path="/blogs" element={<Blogs onBack={() => navigate("/")} onBlogClick={handleBlogClick} />} />
           <Route path="/blog/:id" element={<BlogDetail onBack={() => navigate("/blogs")} />} />
         </Routes>

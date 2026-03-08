@@ -3,11 +3,14 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { photos } from "@/data/db";
 
+import { useNavigate } from "react-router-dom";
+
 interface PhotosProps {
     onBack: () => void;
 }
 
 const Photos: React.FC<PhotosProps> = ({ onBack }) => {
+    const navigate = useNavigate();
 
     return (
         <div
@@ -18,7 +21,7 @@ const Photos: React.FC<PhotosProps> = ({ onBack }) => {
                 <Button
                     onClick={onBack}
                     variant="outline"
-                    className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 py-2 rounded-full bg-brand-50/5 h-auto text-sm"
+                    className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 h-11 rounded-xl bg-brand-50/5"
                 >
                     <ArrowLeft className="w-4 h-4" /> ফিরে যান
                 </Button>
@@ -30,12 +33,16 @@ const Photos: React.FC<PhotosProps> = ({ onBack }) => {
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
-                    {photos.map((src, idx) => (
-                        <div key={idx} className="overflow-hidden rounded-xl md:rounded-2xl border border-brand-50/10 hover:border-gold-500/30 transition-colors group">
+                    {photos.map((photo, idx) => (
+                        <div
+                            key={photo.id}
+                            onClick={() => navigate(`/photos/${photo.id}`)}
+                            className="overflow-hidden rounded-xl md:rounded-2xl border border-brand-50/10 hover:border-gold-500/30 transition-colors group cursor-pointer"
+                        >
                             <img
-                                src={src}
-                                className="w-full h-40 md:h-64 object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
-                                alt={`Activity ${idx + 1}`}
+                                src={photo.url}
+                                className="w-full h-40 md:h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                                alt={photo.title || `Activity ${idx + 1}`}
                             />
                         </div>
                     ))}

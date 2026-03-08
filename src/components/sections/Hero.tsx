@@ -55,15 +55,16 @@ const Hero: React.FC<HeroProps> = ({ onDonateClick, onActivitiesClick }) => {
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto px-4 sm:px-0">
           <Button
             onClick={onDonateClick}
-            className="w-full sm:w-auto bg-gradient-to-r from-gold-500 to-gold-600 text-brand-950 px-8 md:px-10 py-6 md:py-8 rounded-full font-bold text-base md:text-lg hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-[0_0_20px_var(--color-gold-500)]/30 hover:shadow-[0_0_30px_var(--color-gold-400)]/50 flex items-center justify-center gap-3 transform hover:-translate-y-1 h-auto active:scale-95"
+            variant="outline"
+            className="w-full sm:w-auto bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-brand-50 px-10 h-14 md:h-16 rounded-2xl font-bold text-lg md:text-xl hover:bg-brand-900/80 hover:border-gold-400 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1 active:scale-95"
           >
-            <HandCoins className="w-5 h-5" />
+            <HandCoins className="w-6 h-6 text-gold-400" />
             এখনই দান করুন
           </Button>
           <Button
             onClick={onActivitiesClick}
             variant="outline"
-            className="w-full sm:w-auto bg-brand-50/5 border border-gold-500/30 text-gold-50 px-8 md:px-10 py-6 md:py-8 rounded-full font-bold text-base md:text-lg hover:bg-brand-50/10 hover:border-gold-400 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-sm h-auto active:scale-95"
+            className="w-full sm:w-auto bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-brand-50 px-10 h-14 md:h-16 rounded-2xl font-bold text-lg md:text-xl hover:bg-brand-900/80 hover:border-gold-400 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1 active:scale-95"
           >
             কার্যক্রম সমুহ
           </Button>

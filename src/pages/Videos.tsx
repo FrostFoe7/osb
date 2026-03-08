@@ -3,11 +3,14 @@ import { ArrowLeft, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { videos } from "@/data/db";
 
+import { useNavigate } from "react-router-dom";
+
 interface VideosProps {
     onBack: () => void;
 }
 
 const Videos: React.FC<VideosProps> = ({ onBack }) => {
+    const navigate = useNavigate();
 
     return (
         <div
@@ -18,7 +21,7 @@ const Videos: React.FC<VideosProps> = ({ onBack }) => {
                 <Button
                     onClick={onBack}
                     variant="outline"
-                    className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 py-2 rounded-full bg-brand-50/5 h-auto text-sm"
+                    className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 h-11 rounded-xl bg-brand-50/5"
                 >
                     <ArrowLeft className="w-4 h-4" /> ফিরে যান
                 </Button>
@@ -33,6 +36,7 @@ const Videos: React.FC<VideosProps> = ({ onBack }) => {
                     {videos.map((video, index) => (
                         <div
                             key={index}
+                            onClick={() => navigate(`/videos/${video.id}`)}
                             className="glass-card-dark rounded-3xl overflow-hidden group cursor-pointer"
                         >
                             <div className="h-48 md:h-56 bg-brand-950 relative flex items-center justify-center">

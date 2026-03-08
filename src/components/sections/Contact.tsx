@@ -89,7 +89,8 @@ const Contact: React.FC = () => {
               />
               <Button
                 type="submit"
-                className="w-full bg-gold-500 text-brand-950 py-5 md:py-7 rounded-xl font-bold hover:bg-gold-400 h-auto text-base active:scale-95"
+                variant="outline"
+                className="w-full bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 h-14 md:h-16 rounded-2xl font-bold hover:bg-brand-900/80 hover:border-gold-400 text-base md:text-lg active:scale-95 transition-all shadow-[0_0_15px_rgba(212,175,55,0.05)]"
               >
                 বার্তা পাঠান
               </Button>

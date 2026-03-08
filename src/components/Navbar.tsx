@@ -89,9 +89,10 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
               ))}
               <Button
                 onClick={() => onNavigate("donate")}
-                className="bg-gold-500 text-brand-950 px-7 py-2.5 rounded-full font-bold hover:bg-gold-400 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] flex items-center gap-2 transform hover:-translate-y-0.5 border border-transparent"
+                variant="outline"
+                className="bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 px-8 h-12 rounded-2xl font-bold hover:bg-brand-900/80 hover:border-gold-400 hover:shadow-[0_0_15px_rgba(212,175,55,0.1)] transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5"
               >
-                <Heart className="w-4 h-4" /> অনুদান দিন
+                <Heart className="w-4 h-4 text-gold-400" /> অনুদান দিন
               </Button>
             </div>
 
@@ -154,11 +155,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
               onNavigate("donate");
               setIsMobileMenuOpen(false);
             }}
+            variant="outline"
             style={{ transitionDelay: `${navLinks.length * 100}ms` }}
-            className={`bg-gold-500 text-brand-950 px-8 py-4 rounded-full font-bold hover:bg-gold-400 transition-all text-lg mt-6 flex items-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.4)] h-auto transform ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            className={`bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 px-8 h-14 rounded-2xl font-bold hover:bg-brand-900/80 hover:border-gold-400 transition-all text-lg mt-6 flex items-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.1)] transform ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               } duration-500 active:scale-95`}
           >
-            <Heart className="w-5 h-5 fill-current" /> এখনই দান করুন
+            <Heart className="w-5 h-5 text-gold-400 fill-current" /> এখনই দান করুন
           </Button>
         </nav>
       </div>

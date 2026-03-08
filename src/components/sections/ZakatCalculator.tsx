@@ -174,8 +174,8 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
           <div className="mb-8 md:mb-12 animate-fade-in">
             <Button
               onClick={onBack}
-              variant="ghost"
-              className="text-brand-100/60 hover:text-gold-400 hover:bg-gold-500/10 flex items-center gap-2 font-bold px-4 py-2 rounded-xl transition-all"
+              variant="outline"
+              className="bg-brand-900/40 backdrop-blur-md border border-gold-500/20 text-brand-100/60 hover:text-gold-400 hover:bg-brand-900/80 hover:border-gold-400 flex items-center gap-2 font-bold px-6 h-12 rounded-2xl transition-all"
             >
               <ArrowLeft className="w-5 h-5" /> হোম পেজে ফিরে যান
             </Button>
@@ -402,7 +402,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                     <Button
                       onClick={() => changeStep(1)}
                       variant="outline"
-                      className="flex-1 sm:flex-none border-gold-500/30 text-brand-50 hover:bg-gold-500/10 rounded-xl px-4 md:px-6 h-11 md:h-12 font-bold"
+                      className="flex-1 sm:flex-none bg-brand-900/40 backdrop-blur-md border border-gold-500/20 text-brand-100/60 hover:text-gold-400 hover:bg-brand-900/80 hover:border-gold-400 rounded-2xl px-6 h-12 font-bold transition-all"
                     >
                       <ArrowLeft className="w-4 h-4 mr-2" /> ফিরে যান
                     </Button>
@@ -419,7 +419,8 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                 {step === 1 ? (
                   <Button
                     onClick={() => changeStep(2)}
-                    className="w-full sm:w-auto order-1 sm:order-2 bg-gold-500 text-brand-950 font-bold px-8 md:px-10 rounded-xl hover:bg-gold-400 group h-11 md:h-12 shadow-lg shadow-gold-500/20"
+                    variant="outline"
+                    className="w-full sm:w-auto order-1 sm:order-2 bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 font-bold px-10 h-12 md:h-14 rounded-2xl hover:bg-brand-900/80 hover:border-gold-400 group shadow-lg shadow-gold-500/10 transition-all"
                   >
                     পরবর্তী ধাপ <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -492,7 +493,8 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                     </div>
                     <Button
                       onClick={() => window.open('https://assunnahfoundation.org/donation/zakat', '_blank')}
-                      className="w-full bg-gold-500 hover:bg-gold-400 text-brand-950 font-bold rounded-xl h-11 transition-all"
+                      variant="outline"
+                      className="w-full bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 font-bold rounded-2xl h-12 md:h-14 hover:bg-brand-900/80 hover:border-gold-400 transition-all shadow-lg shadow-gold-500/10"
                     >
                       যাকাত প্রদান করুন
                     </Button>
