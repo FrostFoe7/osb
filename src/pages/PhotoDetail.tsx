@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ZoomIn, Download, Share2, Maximize2 } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faSearchPlus, faDownload, faShareAlt, faExpand } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { photos } from "@/data/db";
 import type { PhotoItem } from "@/data/db";
@@ -42,7 +43,7 @@ const PhotoDetail: React.FC = () => {
                         variant="outline"
                         className="inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 h-11 rounded-xl bg-brand-50/5"
                     >
-                        <ArrowLeft className="w-5 h-5" /> গ্যালারিতে ফিরুন
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" /> গ্যালারিতে ফিরুন
                     </Button>
 
                     <div className="flex items-center gap-2 md:gap-4">
@@ -51,13 +52,13 @@ const PhotoDetail: React.FC = () => {
                             className="hidden sm:flex h-11 px-6 rounded-xl border-gold-500/20 text-gold-500 hover:bg-gold-500/10 gap-2 font-bold"
                             onClick={() => window.open(photo.url, '_blank')}
                         >
-                            <Download className="w-4 h-4" /> ডাউনলোড
+                            <FontAwesomeIcon icon={faDownload} className="w-4 h-4" /> ডাউনলোড
                         </Button>
                         <Button
                             variant="outline"
                             className="h-11 w-11 p-0 rounded-xl border-gold-500/20 text-gold-500 hover:bg-gold-500/10"
                         >
-                            <Share2 className="w-5 h-5" />
+                            <FontAwesomeIcon icon={faShareAlt} className="w-5 h-5" />
                         </Button>
                     </div>
                 </div>
@@ -69,7 +70,7 @@ const PhotoDetail: React.FC = () => {
                     >
                         <div className="absolute top-4 right-4 z-20 flex gap-2">
                             <div className="bg-brand-950/60 backdrop-blur-md p-2 rounded-lg border border-brand-50/10 text-brand-100 cursor-pointer hover:text-gold-400 transition-colors">
-                                <Maximize2 className="w-5 h-5" />
+                                <FontAwesomeIcon icon={faExpand} className="w-5 h-5" />
                             </div>
                         </div>
 
@@ -82,7 +83,7 @@ const PhotoDetail: React.FC = () => {
                             {!isZoomed && (
                                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                                     <div className="bg-gold-500/90 text-brand-950 p-4 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                                        <ZoomIn className="w-6 h-6" />
+                                        <FontAwesomeIcon icon={faSearchPlus} className="w-6 h-6" />
                                     </div>
                                 </div>
                             )}

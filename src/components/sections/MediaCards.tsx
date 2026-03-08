@@ -1,5 +1,6 @@
 import React from "react";
-import { Play, ArrowRight, BookMarked, Feather } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faArrowRight, faBookReader, faFeatherAlt } from "@fortawesome/free-solid-svg-icons";
 
 interface MediaCardsProps {
   onNavigate: (pageId: string) => void;
@@ -14,7 +15,7 @@ const MediaCards: React.FC<MediaCardsProps> = ({ onNavigate }) => {
       image:
         "https://images.unsplash.com/photo-1593113512613-333e8b0a9cb3?auto=format&fit=crop&q=80&w=800",
       icon: (
-        <Play className="w-6 h-6 text-gold-400 fill-current group-hover:text-brand-950 ml-1" />
+        <FontAwesomeIcon icon={faPlay} className="w-6 h-6 text-gold-400 fill-current group-hover:text-brand-950 ml-1" />
       ),
       videoStyle: true,
     },
@@ -30,7 +31,7 @@ const MediaCards: React.FC<MediaCardsProps> = ({ onNavigate }) => {
       title: "ব্লগসমুহ",
       subtitle: "আমাদের কার্যক্রম নিয়ে প্রবন্ধ",
       icon: (
-        <Feather className="w-10 h-10 text-gold-400 relative z-10 group-hover:-translate-y-2 transition-transform" />
+        <FontAwesomeIcon icon={faFeatherAlt} className="w-10 h-10 text-gold-400 relative z-10 group-hover:-translate-y-2 transition-transform" />
       ),
       blogStyle: true,
     },
@@ -58,7 +59,7 @@ const MediaCards: React.FC<MediaCardsProps> = ({ onNavigate }) => {
               >
                 {card.blogStyle ? (
                   <>
-                    <BookMarked className="w-32 h-32 text-gold-500/10 absolute group-hover:scale-110 transition-transform duration-700" />
+                    <FontAwesomeIcon icon={faBookReader} className="w-32 h-32 text-gold-500/10 absolute group-hover:scale-110 transition-transform duration-700" />
                     {card.icon}
                   </>
                 ) : (
@@ -87,7 +88,7 @@ const MediaCards: React.FC<MediaCardsProps> = ({ onNavigate }) => {
                     {card.subtitle}
                   </p>
                 </div>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-gold-500 group-hover:translate-x-2 transition-transform shrink-0" />
+                <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4 md:w-5 md:h-5 text-gold-500 group-hover:translate-x-2 transition-transform shrink-0" />
               </div>
             </div>
           ))}

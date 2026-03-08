@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Share2, Info } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faShareAlt, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { videos } from "@/data/db";
 import type { VideoItem } from "@/data/db";
 import { Plyr } from "plyr-react";
-import "plyr-react/plyr.css";
+import "plyr/dist/plyr.css";
 
 const VideoDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -65,11 +66,11 @@ const VideoDetail: React.FC = () => {
                         variant="outline"
                         className="inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 h-11 rounded-xl bg-brand-50/5"
                     >
-                        <ArrowLeft className="w-5 h-5" /> গ্যালারিতে ফিরুন
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" /> গ্যালারিতে ফিরুন
                     </Button>
                     <div className="flex items-center gap-3">
                         <Button variant="outline" className="h-11 w-11 p-0 rounded-xl border-gold-500/20 text-gold-500 hover:bg-gold-500/10">
-                            <Share2 className="w-5 h-5" />
+                            <FontAwesomeIcon icon={faShareAlt} className="w-5 h-5" />
                         </Button>
                     </div>
                 </div>
@@ -92,7 +93,7 @@ const VideoDetail: React.FC = () => {
                             {video.title}
                         </h1>
                         <div className="flex items-center gap-2 text-gold-500/60 font-medium bg-gold-500/5 px-4 py-2 rounded-full w-fit">
-                            <Info className="w-4 h-4" />
+                            <FontAwesomeIcon icon={faInfoCircle} className="w-4 h-4" />
                             <span className="text-xs md:text-sm">OSB ফাউন্ডেশন প্রজেক্ট আর্কাইভ</span>
                         </div>
                     </div>

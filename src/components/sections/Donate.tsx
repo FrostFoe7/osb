@@ -1,5 +1,6 @@
 import React from "react";
-import { Check, Copy } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faCopy } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "sonner";
 
 const Donate: React.FC = () => {
@@ -36,7 +37,7 @@ const Donate: React.FC = () => {
               ].map((text, i) => (
                 <div key={i} className="flex items-center gap-3 md:gap-4 text-brand-50">
                   <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gold-500/20 flex items-center justify-center border border-gold-500/40 shrink-0">
-                    <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-gold-500" />
+                    <FontAwesomeIcon icon={faCheck} className="w-3.5 h-3.5 md:w-4 md:h-4 text-gold-500" />
                   </div>
                   <p className="text-sm md:text-base font-medium">{text}</p>
                 </div>
@@ -91,7 +92,7 @@ const Donate: React.FC = () => {
                 ০১৮৮৯৩৩৩৮৫৯
               </span>
               <span className="text-[11px] md:text-sm font-bold text-gold-200 flex items-center gap-2 bg-brand-900/90 px-4 md:px-6 py-2 md:py-2.5 rounded-full border border-gold-500/30 group-hover:bg-brand-900">
-                <Copy className="w-3.5 h-3.5 md:w-4 md:h-4" /> ক্লিক করে কপি করুন
+                <FontAwesomeIcon icon={faCopy} className="w-3.5 h-3.5 md:w-4 md:h-4" /> ক্লিক করে কপি করুন
               </span>
             </button>
             <p className="text-sm text-brand-100/80 text-center mt-8 leading-relaxed font-medium">

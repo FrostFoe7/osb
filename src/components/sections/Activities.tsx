@@ -1,47 +1,48 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  TrendingUp,
-  ShoppingBag,
-  Hammer,
-  Utensils,
-  Backpack,
-  Droplets,
-  CloudSnow,
-  LifeBuoy,
-} from "lucide-react";
+  faChartLine,
+  faShoppingBag,
+  faHammer,
+  faUtensils,
+  faBriefcase,
+  faDroplet,
+  faSnowflake,
+  faLifeRing,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Activities: React.FC = () => {
   const activities = [
     {
-      icon: <TrendingUp className="w-7 h-7 text-gold-400 group-hover:text-gold-300 transition-colors" />,
+      icon: <FontAwesomeIcon icon={faChartLine} className="w-7 h-7 text-gold-400 group-hover:text-gold-300 transition-colors" />,
       title: "স্বাবলম্বীকরণ",
     },
     {
-      icon: <ShoppingBag className="w-7 h-7 text-brand-100" />,
+      icon: <FontAwesomeIcon icon={faShoppingBag} className="w-7 h-7 text-brand-100" />,
       title: "রমাদান বাজার",
     },
     {
-      icon: <Hammer className="w-7 h-7 text-gold-400" />,
+      icon: <FontAwesomeIcon icon={faHammer} className="w-7 h-7 text-gold-400" />,
       title: "পুনর্বাসন প্রকল্প",
     },
     {
-      icon: <Utensils className="w-7 h-7 text-gold-400" />,
+      icon: <FontAwesomeIcon icon={faUtensils} className="w-7 h-7 text-gold-400" />,
       title: "ইফতার বিতরণ",
     },
     {
-      icon: <Backpack className="w-7 h-7 text-gold-400" />,
+      icon: <FontAwesomeIcon icon={faBriefcase} className="w-7 h-7 text-gold-400" />,
       title: "শিক্ষা সামগ্রী",
     },
     {
-      icon: <Droplets className="w-7 h-7 text-brand-100" />,
+      icon: <FontAwesomeIcon icon={faDroplet} className="w-7 h-7 text-brand-100" />,
       title: "টিউবওয়েল স্থাপন",
     },
     {
-      icon: <CloudSnow className="w-7 h-7 text-brand-100" />,
+      icon: <FontAwesomeIcon icon={faSnowflake} className="w-7 h-7 text-brand-100" />,
       title: "শীতবস্ত্র বিতরণ",
     },
     {
-      icon: <LifeBuoy className="w-7 h-7 text-brand-100" />,
+      icon: <FontAwesomeIcon icon={faLifeRing} className="w-7 h-7 text-brand-100" />,
       title: "দুর্যোগে ত্রাণ",
     },
   ];

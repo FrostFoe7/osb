@@ -1,5 +1,6 @@
 import React from "react";
-import { Sparkles, Star, Moon, HandCoins } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagic, faStar, faMoon, faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
 
 interface HeroProps {
@@ -17,15 +18,15 @@ const Hero: React.FC<HeroProps> = ({ onDonateClick, onActivitiesClick }) => {
 
       {/* Decorative Icons */}
       <div className="absolute top-24 left-10 lg:left-32 opacity-20 animate-float pointer-events-none">
-        <Star className="w-16 h-16 text-gold-400 fill-current" />
+        <FontAwesomeIcon icon={faStar} className="w-16 h-16 text-gold-400 fill-current" />
       </div>
       <div className="absolute top-64 right-10 lg:right-32 opacity-20 animate-float-delayed pointer-events-none">
-        <Moon className="w-20 h-20 text-gold-400 fill-current" />
+        <FontAwesomeIcon icon={faMoon} className="w-20 h-20 text-gold-400 fill-current" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center animate-fade-in">
         <div className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-full bg-brand-50/5 text-gold-100 border border-gold-500/20 mb-6 md:mb-10 backdrop-blur-md shadow-inner">
-          <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-gold-400" />
+          <FontAwesomeIcon icon={faMagic} className="w-3.5 h-3.5 md:w-4 md:h-4 text-gold-400" />
           <span className="text-[12px] md:text-base font-medium tracking-wide">
             আপনার ২০ টাকার সাদাকাহ, কারো জীবনের স্বচ্ছতা
           </span>
@@ -58,7 +59,7 @@ const Hero: React.FC<HeroProps> = ({ onDonateClick, onActivitiesClick }) => {
             variant="outline"
             className="w-full sm:w-auto bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-brand-50 px-10 h-14 md:h-16 rounded-2xl font-bold text-lg md:text-xl hover:bg-brand-900/80 hover:border-gold-400 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1 active:scale-95"
           >
-            <HandCoins className="w-6 h-6 text-gold-400" />
+            <FontAwesomeIcon icon={faHandHoldingDollar} className="w-6 h-6 text-gold-400" />
             এখনই দান করুন
           </Button>
           <Button

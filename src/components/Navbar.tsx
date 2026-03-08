@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 
@@ -92,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 variant="outline"
                 className="bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 px-8 h-12 rounded-2xl font-bold hover:bg-brand-900/80 hover:border-gold-400 hover:shadow-[0_0_15px_rgba(212,175,55,0.1)] transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5"
               >
-                <Heart className="w-4 h-4 text-gold-400" /> অনুদান দিন
+                <FontAwesomeIcon icon={faHeart} className="w-4 h-4 text-gold-400" /> অনুদান দিন
               </Button>
             </div>
 
@@ -102,7 +103,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
                 className="text-brand-50 hover:text-gold-400 transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <Menu className="w-7 h-7" />
+                <FontAwesomeIcon icon={faBars} className="w-7 h-7" />
               </button>
             </div>
           </div>
@@ -118,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
           className="absolute top-6 right-6 text-brand-50 hover:text-gold-400 p-3 transition-transform active:scale-90"
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          <X className="w-8 h-8" />
+          <FontAwesomeIcon icon={faTimes} className="w-8 h-8" />
         </button>
 
         <div className="relative group mb-8">
@@ -160,7 +161,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeSection }) => {
             className={`bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 px-8 h-14 rounded-2xl font-bold hover:bg-brand-900/80 hover:border-gold-400 transition-all text-lg mt-6 flex items-center gap-2 shadow-[0_0_30px_rgba(212,175,55,0.1)] transform ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               } duration-500 active:scale-95`}
           >
-            <Heart className="w-5 h-5 text-gold-400 fill-current" /> এখনই দান করুন
+            <FontAwesomeIcon icon={faHeart} className="w-5 h-5 text-gold-400 fill-current" /> এখনই দান করুন
           </Button>
         </nav>
       </div>

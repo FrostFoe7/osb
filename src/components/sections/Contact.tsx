@@ -1,5 +1,6 @@
 import React from "react";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -15,17 +16,17 @@ const Contact: React.FC = () => {
 
   const contactInfos = [
     {
-      icon: <MapPin className="w-6 h-6 text-gold-400" />,
+      icon: <FontAwesomeIcon icon={faMapMarkerAlt} className="w-6 h-6 text-gold-400" />,
       title: "আমাদের ঠিকানা",
       desc: "খুলনা বিভাগ, বাংলাদেশ",
     },
     {
-      icon: <Phone className="w-6 h-6 text-gold-400" />,
+      icon: <FontAwesomeIcon icon={faPhone} className="w-6 h-6 text-gold-400" />,
       title: "হটলাইন নম্বর",
       desc: "+880 1889 333859",
     },
     {
-      icon: <Mail className="w-6 h-6 text-gold-400" />,
+      icon: <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6 text-gold-400" />,
       title: "ইমেইল ঠিকানা",
       desc: "info@osbfoundation.org",
     },

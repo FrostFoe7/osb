@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowLeft, BookOpen, Heart, ArrowRight } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faBookOpen, faHeart, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import type { BlogItem } from "@/types/blog";
 import { blogs } from "@/data/db";
@@ -22,7 +23,7 @@ const Blogs: React.FC<BlogsProps> = ({ onBack, onBlogClick }) => {
                     variant="outline"
                     className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 py-2 rounded-full bg-brand-50/5 h-auto text-sm"
                 >
-                    <ArrowLeft className="w-4 h-4" /> ফিরে যান
+                    <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" /> ফিরে যান
                 </Button>
                 <div className="text-center mb-10 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-50 pb-2">
@@ -40,9 +41,9 @@ const Blogs: React.FC<BlogsProps> = ({ onBack, onBlogClick }) => {
                         >
                             <div className="w-12 h-12 bg-brand-900/50 rounded-xl flex items-center justify-center mb-6 text-gold-400 border border-gold-500/10">
                                 {blog.icon === "book-open" ? (
-                                    <BookOpen className="w-5 h-5 md:w-6 md:h-6" />
+                                    <FontAwesomeIcon icon={faBookOpen} className="w-5 h-5 md:w-6 md:h-6" />
                                 ) : (
-                                    <Heart className="w-5 h-5 md:w-6 md:h-6" />
+                                    <FontAwesomeIcon icon={faHeart} className="w-5 h-5 md:w-6 md:h-6" />
                                 )}
                             </div>
                             <h3 className="font-serif font-bold text-xl md:text-2xl text-brand-50 mb-4 group-hover:text-gold-400 transition-colors">
@@ -52,7 +53,7 @@ const Blogs: React.FC<BlogsProps> = ({ onBack, onBlogClick }) => {
                                 {blog.content}
                             </p>
                             <span className="inline-flex items-center gap-2 text-gold-400 font-medium text-sm md:text-base">
-                                বিস্তারিত পড়ুন <ArrowRight className="w-4 h-4" />
+                                বিস্তারিত পড়ুন <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
                             </span>
                         </div>
                     ))}

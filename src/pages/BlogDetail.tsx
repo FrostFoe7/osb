@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowLeft } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import type { BlogItem } from "@/types/blog";
@@ -35,7 +36,7 @@ const BlogDetail: React.FC<BlogDetailProps> = ({ onBack }) => {
                     variant="outline"
                     className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 py-2 rounded-full bg-brand-50/5 h-auto text-sm"
                 >
-                    <ArrowLeft className="w-4 h-4" /> প্রবন্ধ লিস্টে ফিরে যান
+                    <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" /> প্রবন্ধ লিস্টে ফিরে যান
                 </Button>
 
                 <div className="glass-card-dark rounded-3xl md:rounded-[2.5rem] p-6 md:p-12">

@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowLeft, Play } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { videos } from "@/data/db";
 
@@ -23,7 +24,7 @@ const Videos: React.FC<VideosProps> = ({ onBack }) => {
                     variant="outline"
                     className="mb-8 inline-flex items-center gap-2 text-gold-400 hover:text-brand-50 transition-colors border-gold-500/30 px-5 h-11 rounded-xl bg-brand-50/5"
                 >
-                    <ArrowLeft className="w-4 h-4" /> ফিরে যান
+                    <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" /> ফিরে যান
                 </Button>
                 <div className="text-center mb-10 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-50 pb-2">
@@ -46,7 +47,7 @@ const Videos: React.FC<VideosProps> = ({ onBack }) => {
                                     alt={video.title}
                                 />
                                 <div className="w-14 h-14 md:w-16 md:h-16 bg-gold-500/90 rounded-full flex items-center justify-center z-10 group-hover:scale-110 transition-transform">
-                                    <Play className="w-5 h-5 md:w-6 md:h-6 text-brand-950 fill-current ml-1" />
+                                    <FontAwesomeIcon icon={faPlay} className="w-5 h-5 md:w-6 md:h-6 text-brand-950 fill-current ml-1" />
                                 </div>
                             </div>
                             <div className="p-5 md:p-6">

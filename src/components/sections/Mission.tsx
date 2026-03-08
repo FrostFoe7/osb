@@ -1,25 +1,26 @@
 import React from "react";
-import { ShoppingBasket, Home, BookOpen } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBasket, faHome, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 
 const Mission: React.FC = () => {
   const missions = [
     {
       icon: (
-        <ShoppingBasket className="w-10 h-10 text-gold-500 group-hover:text-gold-400" />
+        <FontAwesomeIcon icon={faShoppingBasket} className="w-10 h-10 text-gold-500 group-hover:text-gold-400" />
       ),
       title: "খাদ্য",
       description: "অসহায় পরিবারের মাসিক বাজার",
     },
     {
       icon: (
-        <Home className="w-10 h-10 text-gold-500 group-hover:text-gold-400" />
+        <FontAwesomeIcon icon={faHome} className="w-10 h-10 text-gold-500 group-hover:text-gold-400" />
       ),
       title: "পুনর্বাসন",
       description: "হতদরিদ্রদের বাড়ির ব্যবস্থা করা",
     },
     {
       icon: (
-        <BookOpen className="w-10 h-10 text-gold-500 group-hover:text-gold-400" />
+        <FontAwesomeIcon icon={faBookOpen} className="w-10 h-10 text-gold-500 group-hover:text-gold-400" />
       ),
       title: "শিক্ষা সামগ্রী",
       description: "সুবিধাবঞ্চিত শিশুদের শিক্ষা উপকরণ উপহার দেওয়া।",

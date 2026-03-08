@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef } from "react";
-import { Calculator, ArrowRight, ArrowLeft, Info, CheckCircle2, Wallet, Landmark, ChevronUp, ChevronDown, Moon, Sun, Gem, Building2, Tractor, Banknote } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalculator, faArrowRight, faArrowLeft, faCircleInfo, faCheckCircle, faWallet, faLandmark, faChevronUp, faChevronDown, faMoon, faSun, faGem, faBuilding, faTractor, faMoneyBill } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -140,14 +141,14 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
 
   const renderInputField = (id: keyof FormState, label: string, index: number) => (
     <div
-      className="space-y-1.5 md:space-y-2 group animate-fade-in-up"
+      className="space-y-2 group animate-fade-in-up"
       style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
     >
-      <Label htmlFor={id} className="text-[12px] md:text-[13px] font-bold text-brand-100 group-focus-within:text-gold-400 transition-colors block leading-snug">
+      <Label htmlFor={id} className="text-[13px] md:text-sm font-bold text-brand-100/80 group-focus-within:text-gold-400 transition-colors block leading-snug ml-1">
         {label}
       </Label>
-      <div className="relative">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-500 font-bold select-none text-sm">
+      <div className="relative group/input">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-500 font-bold select-none text-base transition-transform group-focus-within/input:scale-110">
           ৳
         </div>
         <Input
@@ -156,9 +157,10 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
           inputMode="decimal"
           value={formData[id]}
           onChange={(e) => handleInputChange(id, e.target.value)}
-          className="w-full bg-brand-950/40 border-gold-500/20 rounded-xl h-10 md:h-11 pl-9 pr-4 text-brand-50 focus:ring-1 focus:ring-gold-500 focus:border-gold-500/50 transition-all border group-hover:border-gold-500/40 text-sm md:text-base font-medium"
+          className="w-full bg-brand-950/60 backdrop-blur-xl border-gold-500/10 rounded-2xl h-12 md:h-14 pl-10 pr-4 text-brand-50 focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500/50 transition-all border group-hover/input:border-gold-500/30 text-base md:text-lg font-bold shadow-inner"
           placeholder="০"
         />
+        <div className="absolute inset-0 rounded-2xl bg-gold-500/5 opacity-0 group-hover/input:opacity-100 pointer-events-none transition-opacity"></div>
       </div>
     </div>
   );
@@ -177,7 +179,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
               variant="outline"
               className="bg-brand-900/40 backdrop-blur-md border border-gold-500/20 text-brand-100/60 hover:text-gold-400 hover:bg-brand-900/80 hover:border-gold-400 flex items-center gap-2 font-bold px-6 h-12 rounded-2xl transition-all"
             >
-              <ArrowLeft className="w-5 h-5" /> হোম পেজে ফিরে যান
+              <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" /> হোম পেজে ফিরে যান
             </Button>
           </div>
         )}
@@ -199,13 +201,17 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
               {/* Stepper Header */}
               <div className="p-5 sm:p-8 border-b border-brand-50/5 bg-brand-900/10">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
-                  <div className="flex items-center gap-3 md:gap-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gold-500/10 rounded-xl md:rounded-2xl flex items-center justify-center border border-gold-500/20 shadow-inner">
-                      <Calculator className="w-5 h-5 md:w-6 md:h-6 text-gold-400" />
+                  <div className="flex items-center gap-4 md:gap-5">
+                    <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-gold-500/20 to-brand-900/40 rounded-2xl md:rounded-3xl flex items-center justify-center border border-gold-500/30 shadow-[0_0_20px_rgba(212,175,55,0.1)] relative group">
+                      <div className="absolute inset-0 bg-gold-500/10 rounded-2xl md:rounded-3xl animate-pulse"></div>
+                      <FontAwesomeIcon icon={faCalculator} className="w-6 h-6 md:w-8 md:h-8 text-gold-400 relative z-10" />
                     </div>
                     <div>
-                      <h3 className="font-serif font-bold text-base md:text-xl text-brand-50">জাকাতের হিসাব</h3>
-                      <p className="text-[9px] md:text-[10px] text-gold-500/50 uppercase tracking-[0.2em] mt-0.5 font-bold">Step {step} of 2</p>
+                      <h3 className="font-serif font-extrabold text-xl md:text-3xl text-brand-50 tracking-tight">জাকাত ক্যালকুলেটর</h3>
+                      <div className="flex items-center gap-3 mt-1 md:mt-2">
+                        <div className="h-1 w-8 bg-gold-500 rounded-full"></div>
+                        <p className="text-[10px] md:text-xs text-gold-500 font-black uppercase tracking-[0.3em]">Step {step} of 2</p>
+                      </div>
                     </div>
                   </div>
 
@@ -215,13 +221,13 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                       onClick={() => setIsSolarYear(false)}
                       className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${!isSolarYear ? 'bg-gold-500 text-brand-950 shadow-lg' : 'text-brand-100/60 hover:text-brand-100'}`}
                     >
-                      <Moon className="w-3.5 h-3.5" /> চন্দ্রবর্ষ
+                      <FontAwesomeIcon icon={faMoon} className="w-3.5 h-3.5" /> চন্দ্রবর্ষ
                     </button>
                     <button
                       onClick={() => setIsSolarYear(true)}
                       className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${isSolarYear ? 'bg-gold-500 text-brand-950 shadow-lg' : 'text-brand-100/60 hover:text-brand-100'}`}
                     >
-                      <Sun className="w-3.5 h-3.5" /> সৌরবর্ষ
+                      <FontAwesomeIcon icon={faSun} className="w-3.5 h-3.5" /> সৌরবর্ষ
                     </button>
                   </div>
                 </div>
@@ -229,12 +235,12 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                 <div className="flex items-center gap-2 text-gold-400/90 font-medium">
                   {step === 1 ? (
                     <div className="flex items-center gap-2 animate-fade-in">
-                      <Wallet className="w-5 h-5 text-gold-500" />
+                      <FontAwesomeIcon icon={faWallet} className="w-5 h-5 text-gold-500" />
                       <span className="text-base md:text-lg">ধাপ ১: জাকাতযোগ্য সম্পদ</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 animate-fade-in">
-                      <Landmark className="w-5 h-5 text-gold-500" />
+                      <FontAwesomeIcon icon={faLandmark} className="w-5 h-5 text-gold-500" />
                       <span className="text-base md:text-lg">ধাপ ২: দায়-দেনা (ঋণ)</span>
                     </div>
                   )}
@@ -252,13 +258,13 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                         className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
                       >
                         <div className="flex items-center gap-2">
-                          <Gem className="w-4 h-4 text-gold-500/60" />
+                          <FontAwesomeIcon icon={faGem} className="w-4 h-4 text-gold-500/60" />
                           <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">অলংকার ও মূল্যবান সামগ্রী</h4>
                         </div>
                         {isExpanded("jewelry") ? (
-                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronUp} className="w-4 h-4 text-gold-500/40" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronDown} className="w-4 h-4 text-gold-500/40" />
                         )}
                       </button>
 
@@ -278,13 +284,13 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                         className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
                       >
                         <div className="flex items-center gap-2">
-                          <Banknote className="w-4 h-4 text-gold-500/60" />
+                          <FontAwesomeIcon icon={faMoneyBill} className="w-4 h-4 text-gold-500/60" />
                           <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">নগদ অর্থ ও ব্যাংক</h4>
                         </div>
                         {isExpanded("cash") ? (
-                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronUp} className="w-4 h-4 text-gold-500/40" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronDown} className="w-4 h-4 text-gold-500/40" />
                         )}
                       </button>
 
@@ -306,13 +312,13 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                         className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
                       >
                         <div className="flex items-center gap-2">
-                          <Building2 className="w-4 h-4 text-gold-500/60" />
+                          <FontAwesomeIcon icon={faBuilding} className="w-4 h-4 text-gold-500/60" />
                           <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">ব্যবসা ও বিনিয়োগ</h4>
                         </div>
                         {isExpanded("business") ? (
-                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronUp} className="w-4 h-4 text-gold-500/40" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronDown} className="w-4 h-4 text-gold-500/40" />
                         )}
                       </button>
 
@@ -333,13 +339,13 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                         className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
                       >
                         <div className="flex items-center gap-2">
-                          <Tractor className="w-4 h-4 text-gold-500/60" />
+                          <FontAwesomeIcon icon={faTractor} className="w-4 h-4 text-gold-500/60" />
                           <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">জমি ও বাণিজ্যিক খামার</h4>
                         </div>
                         {isExpanded("farms") ? (
-                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronUp} className="w-4 h-4 text-gold-500/40" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronDown} className="w-4 h-4 text-gold-500/40" />
                         )}
                       </button>
 
@@ -358,13 +364,13 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                         className="w-full flex items-center justify-between p-4 md:p-5 bg-brand-900/20 hover:bg-brand-900/40 transition-colors border-b border-brand-50/5"
                       >
                         <div className="flex items-center gap-2">
-                          <ArrowRight className="w-4 h-4 text-gold-500/60" />
+                          <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4 text-gold-500/60" />
                           <h4 className="text-[11px] font-bold text-gold-500/60 uppercase tracking-[0.15em]">পাওনা অর্থ</h4>
                         </div>
                         {isExpanded("receivables") ? (
-                          <ChevronUp className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronUp} className="w-4 h-4 text-gold-500/40" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-gold-500/40" />
+                          <FontAwesomeIcon icon={faChevronDown} className="w-4 h-4 text-gold-500/40" />
                         )}
                       </button>
 
@@ -379,7 +385,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                 ) : (
                   <div className="space-y-8 animate-fade-in">
                     <div className="p-4 bg-red-500/5 rounded-2xl border border-red-500/10 flex gap-4">
-                      <Info className="w-5 h-5 text-red-500/60 shrink-0 mt-0.5" />
+                      <FontAwesomeIcon icon={faCircleInfo} className="w-5 h-5 text-red-500/60 shrink-0 mt-0.5" />
                       <p className="text-sm text-brand-100/60 leading-relaxed italic font-light">
                         শুধুমাত্র তাৎক্ষণিক পরিশোধযোগ্য ঋণ এবং কিস্তিতে পরিশোধযোগ্য ঋণের চলমান কিস্তির পরিমাণ অর্থ এখানে প্রদান করুন।
                       </p>
@@ -404,7 +410,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                       variant="outline"
                       className="flex-1 sm:flex-none bg-brand-900/40 backdrop-blur-md border border-gold-500/20 text-brand-100/60 hover:text-gold-400 hover:bg-brand-900/80 hover:border-gold-400 rounded-2xl px-6 h-12 font-bold transition-all"
                     >
-                      <ArrowLeft className="w-4 h-4 mr-2" /> ফিরে যান
+                      <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4 mr-2" /> ফিরে যান
                     </Button>
                   )}
                   <Button
@@ -422,7 +428,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                     variant="outline"
                     className="w-full sm:w-auto order-1 sm:order-2 bg-brand-900/40 backdrop-blur-md border border-gold-500/30 text-gold-50 font-bold px-10 h-12 md:h-14 rounded-2xl hover:bg-brand-900/80 hover:border-gold-400 group shadow-lg shadow-gold-500/10 transition-all"
                   >
-                    পরবর্তী ধাপ <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    পরবর্তী ধাপ <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 ) : (
                   <Button
@@ -432,7 +438,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                     }}
                     className="w-full sm:w-auto order-1 sm:order-2 bg-green-600 text-white font-bold px-8 md:px-10 rounded-xl hover:bg-green-500 h-11 md:h-12 shadow-lg shadow-green-600/20 uppercase tracking-wide text-xs md:text-sm"
                   >
-                    হিসাব দেখুন <ChevronUp className="w-4 h-4 ml-2" />
+                    হিসাব দেখুন <FontAwesomeIcon icon={faChevronUp} className="w-4 h-4 ml-2" />
                   </Button>
                 )}
               </div>
@@ -441,7 +447,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
             {/* Information Notice Section */}
             <div className="glass-card-dark rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold-500/10 bg-gold-500/5 animate-fade-in group">
               <div className="flex items-center gap-3 mb-3 md:mb-4">
-                <Info className="w-5 h-5 md:w-6 md:h-6 text-gold-500 group-hover:scale-110 transition-transform" />
+                <FontAwesomeIcon icon={faCircleInfo} className="w-5 h-5 md:w-6 md:h-6 text-gold-500 group-hover:scale-110 transition-transform" />
                 <h5 className="font-bold text-gold-500 text-sm md:text-lg">হিসাব পদ্ধতি ও শর্তাবলী:</h5>
               </div>
               <ul className="text-[11px] md:text-[13px] text-brand-100/90 space-y-2 md:space-y-3 font-medium list-disc pl-5">
@@ -466,18 +472,18 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                   ৳{formatter.format(totals.zakatDue)}
                 </div>
 
-                <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
-                  <div className="flex justify-between items-center text-xs md:text-sm py-2 md:py-3 border-b border-brand-50/10">
-                    <span className="text-brand-100/70 font-bold">মোট সম্পদ</span>
-                    <span className="text-brand-50 font-black bg-brand-50/10 px-3 py-1 rounded-full">৳{formatter.format(totals.assets)}</span>
+                <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
+                  <div className="flex justify-between items-end text-sm md:text-base py-3 border-b border-gold-500/10 group/item">
+                    <span className="text-brand-100/60 font-medium">মোট সম্পদ</span>
+                    <span className="text-brand-50 font-bold text-lg md:text-xl transform group-hover/item:scale-105 transition-transform">৳{formatter.format(totals.assets)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-xs md:text-sm py-2 md:py-3 border-b border-brand-50/10">
-                    <span className="text-brand-100/70 font-bold">মোট দায় (ঋণ)</span>
-                    <span className="text-red-400 font-black bg-red-400/10 px-3 py-1 rounded-full">- ৳{formatter.format(totals.liabilities)}</span>
+                  <div className="flex justify-between items-end text-sm md:text-base py-3 border-b border-gold-500/10 group/item">
+                    <span className="text-brand-100/60 font-medium">মোট দায় (ঋণ)</span>
+                    <span className="text-red-400 font-bold text-lg md:text-xl transform group-hover/item:scale-105 transition-transform">- ৳{formatter.format(totals.liabilities)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-xs md:text-sm py-3 md:py-4">
-                    <span className="text-gold-500 font-black uppercase tracking-wider">প্রযোজ্য হার</span>
-                    <span className="text-brand-50 font-black text-lg">{(totals.rate * 100).toFixed(2)}%</span>
+                  <div className="flex justify-between items-center py-4 bg-gold-500/5 px-4 rounded-xl border border-gold-500/10">
+                    <span className="text-gold-500 font-black text-xs uppercase tracking-widest">প্রযোজ্য হার</span>
+                    <span className="text-gold-50 font-black text-xl md:text-2xl">{(totals.rate * 100).toFixed(2)}%</span>
                   </div>
                 </div>
 
@@ -488,7 +494,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
                 ) : totals.zakatDue > 0 ? (
                   <div className="mt-4 space-y-4">
                     <div className="flex items-center justify-center gap-2 p-3 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-400">
-                      <CheckCircle2 className="w-5 h-5 shrink-0" />
+                      <FontAwesomeIcon icon={faCheckCircle} className="w-5 h-5 shrink-0" />
                       <span className="text-[11px] font-bold uppercase tracking-widest">যাকাত ফরজ হওয়ার সম্ভাবনা আছে</span>
                     </div>
                     <Button
@@ -511,7 +517,7 @@ const ZakatCalculator: React.FC<ZakatCalculatorProps> = ({ onBack }) => {
             <div className="glass-card-dark rounded-[2rem] p-6 border border-brand-50/5 bg-brand-900/5 hover:border-gold-500/20 transition-colors duration-500 group animate-fade-in" style={{ animationDelay: '200ms' }}>
               <div className="flex items-center justify-between mb-6">
                 <h5 className="font-serif font-bold text-brand-50 text-lg flex items-center gap-2">
-                  <Info className="w-5 h-5 text-gold-500" /> নিসাব তথ্য
+                  <FontAwesomeIcon icon={faCircleInfo} className="w-5 h-5 text-gold-500" /> নিসাব তথ্য
                 </h5>
                 <span className="px-2 py-0.5 bg-gold-500/10 text-gold-500 text-[9px] font-bold rounded-full border border-gold-500/20">SILVER BASIS</span>
               </div>
